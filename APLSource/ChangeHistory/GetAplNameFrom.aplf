@@ -1,0 +1,8 @@
+ GetAplNameFrom←{
+⍝ Takes namespace path (⍺) and the file path ⍵ and returns the APL name
+     namespacePath←⍺
+     filePath←⍵
+     name←{⍵↓⍨-'.'⍳⍨⌽⍵}filePath
+     ((name∊'/\')/name)←'.'
+     namespacePath,'.',name
+ }

@@ -1,0 +1,5 @@
+ OnSelectRadioButton←{
+     n←GetRef2n 1⊃,⍵
+     _←⎕NQ n.Grid 9999
+     1
+ }

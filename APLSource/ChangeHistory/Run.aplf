@@ -1,0 +1,13 @@
+ {r}←{project}Run name;tno;filename;G;A;path;nsPath;data
+⍝ All change files are presented in a GUI. If `name` is not empty we try to identify the object and
+⍝ pre-select it. The user can then click the `Process` button in order to see a list of all components
+⍝ saved for that particualar object. She can then compare any two of them.\\
+⍝ If `project` is undefined or empty the default project rules. Otherwise `project` must be the fully
+⍝ qualified name of a namespace that hosts an acre project.\\
+ r←⍬
+ A←##.APLTreeUtils ⋄ G←##.APLGUI
+ :If 0=⎕NC'project'
+     (project path)←⎕SE.APLGit.EstablishProject''
+ :EndIf
+ (name filename)←SelectObject path project name
+⍝Done

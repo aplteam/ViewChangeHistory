@@ -1,0 +1,59 @@
+ n←projectName CreateMainGUI path;n;parms;∆
+⍝ Creates the GUI that puts **all** change files on display
+ parms←G.StdForm.CreateParms
+ parms.caption←'History of ',projectName
+ parms.hasStatusbar←1
+ parms.hasVersionField←0
+ parms.(hGap vGap)←5 10
+ :If 0<⎕NC'∆PosnTreeForm'
+     parms.posn←∆PosnTreeForm
+     parms.size←∆SizeTreeForm
+ :EndIf
+ n←G.StdForm.Create parms
+ n.∆Form.onClose←'OnCloseTreeForm'
+ n.∆Form.∆ProjectPath←path
+
+ n.MyTipField←n.∆Form.⎕NEW⊂'TipField'
+
+ n←CreateMenuBarInMainForm n
+
+ ∆←''
+ ∆,←⊂'Posn'(parms.(hGap vGap))
+ ∆,←⊂'Caption' '&Filter:'
+ ∆,←⊂'Attach'('Top' 'Left' 'Top' 'Left')
+ n.LabelFilter←n.∆Form.⎕NEW'Label'∆
+
+ ∆←''
+ ∆,←⊂'Posn'(parms.vGap,2⊃AddPosnSize n.LabelFilter)
+ ∆,←⊂'Attach'('Top' 'Left' 'Top' 'Right')
+ ∆,←⊂'HasClearButton' 1
+ n.Filter←n.∆Form.⎕NEW'Edit'∆
+ n.Filter.onMouseUp←'OnMouseUpInFilter'
+
+ ∆←''
+ ∆,←⊂'Posn'(parms.vGap,n.∆Form.Size[2]-parms.hGap+80)
+ ∆,←⊂'Size'(⍬ 80)
+ ∆,←⊂'Caption' '&Go'
+ ∆,←⊂'TipObj'n.MyTipField
+ ∆,←⊂'Attach'('Top' 'Right' 'Top' 'Right')
+ n.Go←n.∆Form.⎕NEW'Button'∆
+ n.Go.onSelect←'OnSelectFilter'
+
+ n.Filter.Size←(n.Go.Size[1])(n.∆Form.Size[2]-(3×parms.hGap)+(2⊃AddPosnSize n.LabelFilter)+n.Go.Size[2])
+
+ n.APLfont←⎕NEW'Font'(('PName' 'APL385 Unicode')('Size'(2⊃⎕SE.FontObj)))
+
+ ∆←''
+ ∆,←⊂'View' 'Report'
+ ∆,←⊂'Attach'('Top' 'Left' 'Bottom' 'Right')
+ ∆,←⊂'ColTitles'('Path' 'Last changed' 'Changes' 'WS' 'Actions')
+ ∆,←⊂'FullRowSelect' 1
+ ∆,←⊂'FontObj'n.APLfont
+ n.List←n.∆Form.⎕NEW'ListView'∆
+
+ n.List.Posn[1]←parms.vGap+⊃AddPosnSize n.Go
+ n.List.Posn[2]←parms.hGap
+ n.List.Size[1]←n.∆Form.Size[1]-(3×parms.vGap)+n.Statusbar.Size[1]+n.Go.Size[1]
+ n.List.Size[2]←n.∆Form.Size[2]-2×parms.hGap
+ n.List.onContextMenu←'OnContextMenuOnList'
+ ⍝Done

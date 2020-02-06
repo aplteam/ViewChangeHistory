@@ -1,0 +1,13 @@
+ OnDeleteInMainList←{
+     n←GetRef2n 1⊃,⍵
+     parms←G.Dialogs.CreateParmsForYesOrNo
+     parms.caption←'Change History'
+     parms.centerIn←n.∆Form
+     msg←'Are you sure that you want delete this file?' ''
+     msg,←n.List.(SelItems/Items)
+     0=parms G.Dialogs.YesOrNo msg:0
+     filename←n.∆Form.∆Path,(⊃n.List.(SelItems/Items)),'.dcf'
+     _←##.FilesAndDirs.DeleteFile
+     n.List.ReportInfo[n.List.SelItems⍳1;4]←⊂'File deleted'
+     0
+ }

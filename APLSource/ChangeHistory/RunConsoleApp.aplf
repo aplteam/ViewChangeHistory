@@ -1,0 +1,14 @@
+ {R}←{wait}RunConsoleApp cmd;∆WAIT;windowStyle;wsh;rc
+⍝ Starts an application. By default `RunConsoleApp` waits for the app to quit.
+ R←0 ''
+ wait←{0<|⎕NC ⍵:⍎⍵ ⋄ 1}'wait'
+ 'Invalid left argument: must be a Boolean'⎕SIGNAL 11/⍨~wait∊0 1
+ windowStyle←8 ⍝ is WINDOWSTYLE.NORMAL
+ 'wsh'⎕WC'OLEClient' 'WScript.Shell'
+ :Trap 0
+     rc←wsh.Run cmd windowStyle wait
+     R←rc''
+ :Else
+     R←1('.'⎕WG'LastError')
+ :EndTrap
+⍝Done

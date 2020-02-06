@@ -1,0 +1,7 @@
+ On9999←{
+     n←GetRef2n 1⊃,⍵
+     (row col)←1+n.Grid.CurCell
+     n.Grid.Values[;col]←0
+     n.Grid.Values[row;col]←1
+     0
+ }

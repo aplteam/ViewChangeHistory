@@ -1,0 +1,14 @@
+ SetFocusTo←{
+     1:shy←0      ⍝TODO⍝
+
+
+     (rf in)←⍵
+     _←'sendmsg'⎕NA'I4 USER32|SendMessageW U4 U4 U4 U4'
+     hnd←rf.Handle
+     b←rf GetItemState in
+     b[1 2]←1
+     _←2 ⎕NQ rf'SetItemState'in(Power2 b)   ⍝ Don't call the method: bug 10925
+     LVM_ENSUREVISIBLE←4115
+     _←sendmsg hnd LVM_ENSUREVISIBLE in 1
+     1:shy←⍬
+ }

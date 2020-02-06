@@ -1,0 +1,19 @@
+ OnContextMenuOnList←{
+     n←GetRef2n 1⊃,⍵
+     mm←⎕NS''
+     mm.Menu←⎕NEW⊂'Menu'
+     name←⊃n.List.(SelItems/Items)
+     name←{⍵↓⍨-'.'⍳⍨⌽⍵}name
+     ((name∊'/\')/name)←'.'
+     ind←n.List.SelItems⍳1
+     flag←1<A.ToNum 2⊃n.List.ReportInfo[ind;]
+     mm.Process←mm.Menu.⎕NEW'MenuItem'(('Caption' 'Process...')('Active'flag))
+     mm.Process.onSelect←'OnProcessObjects'
+     flag←0<⎕NC ind⊃n.List.∆AplNames
+     mm.Edit←mm.Menu.⎕NEW'MenuItem'(('Caption' 'Edit ')('Active'flag))
+     mm.Edit.onSelect←'OnEditInMainList'
+     mm.Delete←mm.Menu.⎕NEW'MenuItem'(('Caption' 'Delete file')('Active'(~flag)))
+     mm.Delete.onSelect←'OnDeleteInMainList'
+     _←⎕DQ mm.Menu
+     0
+ }

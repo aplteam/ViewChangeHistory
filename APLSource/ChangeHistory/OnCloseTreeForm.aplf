@@ -1,0 +1,6 @@
+ OnCloseTreeForm←{
+     n←GetRef2n 1⊃,⍵
+     ∆PosnTreeForm∘←n.∆Form.Posn
+     ∆SizeTreeForm∘←n.∆Form.Size
+     1
+ }

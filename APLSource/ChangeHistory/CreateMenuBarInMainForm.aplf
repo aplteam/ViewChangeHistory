@@ -1,0 +1,5 @@
+ n←CreateMenuBarInMainForm n;ref
+ ref←n.∆Form.⎕NEW⊂'Menubar'
+ n.MenuFile←ref.⎕NEW'Menu'(⊂'Caption' 'File')
+ n.Quit←n.MenuFile.⎕NEW'MenuItem'(('Caption' 'Quit')('Event'('Select' 1)))
+⍝Done

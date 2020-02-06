@@ -1,0 +1,11 @@
+ OnEditInMainList←{
+     n←GetRef2n 1⊃,⍵
+     ind←n.List.SelItems⍳1
+     name←ind⊃n.List.∆AplNames
+     body←⎕NR name
+     _←⎕ED name
+     flag←body≢⎕NR name
+     msg←(1+flag)⊃'Browsed' 'Edited and changed'
+     n.List.ReportInfo[ind;4]←⊂msg
+     0
+ }

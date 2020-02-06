@@ -1,0 +1,13 @@
+ {r}←BeyondCompare(file1 file2 caption1 caption2);cmd;rc;more
+ r←⍬
+ cmd←''
+ cmd,←⊂'"C:\Program Files\Beyond Compare 4\BCompare.exe"'    ⍝TODO⍝ Make this dynamic
+ cmd,←⊂'"',(file1~'"'),'" /title1="',(caption1~'"'),'"'
+ cmd,←⊂'"',(file2~'"'),'" /title2="',(caption2~'"'),'"'
+ cmd,←⊂' /N'
+ cmd,←⊂' /fv="Text compare"'
+ cmd,←⊂' /solo'
+ cmd,←⊂' /ro'
+ (rc more)←1 RunConsoleApp 1↓⊃,/' ',¨cmd
+ ({0 1∊⍨≡⍵:⍵ ⋄ 1⊃⍵}more)⎕SIGNAL 11/⍨rc>99
+⍝Done

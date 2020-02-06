@@ -1,0 +1,17 @@
+ OnCompare←{
+     n←GetRef2n 1⊃,⍵
+     ind←(↓⍉n.Grid.Values[;1 2])⍳¨1
+     =/ind:TellSelfCompare n
+     filename←n.∆Form.∆Filename
+     tno←n.∆Form.∆Tno
+     (buff1 buff2)←n GetComponent¨ind
+     (date1 date2)←2⊃¨buff1 buff2
+     (body1 body2)←6⊃¨buff1 buff2
+     tf1←'txt'##.FilesAndDirs.GetTempFilename2''
+     tf2←'txt'##.FilesAndDirs.GetTempFilename2''
+     _←A.WriteUtf8File tf1 body1
+     _←A.WriteUtf8File tf2 body2
+     ⍝ name←¯4↓'change_history'{⍵↓⍨(≢⍺)+1⍳⍨⍺⍷⍵}n.∆Form.∆Filename
+     _←BeyondCompare tf1 tf2 date1 date2
+     ##.FilesAndDirs.DeleteFile tf1 tf2
+ }

@@ -1,0 +1,7 @@
+ GetNoOfChanges←{
+     filename←⍵
+     tno←filename ⎕FSTIE 0
+     noOf←-/⌽2↑⎕FSIZE tno
+     _←⎕FUNTIE tno
+     noOf
+ }

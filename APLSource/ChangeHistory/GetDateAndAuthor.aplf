@@ -1,0 +1,4 @@
+ GetDateAndAuthor←{
+     (tno noOf gitFlag)←⍵
+     ↑(gitFlag⍴⊂''),tno∘{3↑⎕FREAD ⍺ ⍵}¨⍳noOf-gitFlag
+ }

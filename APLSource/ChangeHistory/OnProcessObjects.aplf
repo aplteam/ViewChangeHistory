@@ -1,0 +1,9 @@
+ OnProcessObjects←{
+     n←GetRef2n 1⊃,⍵
+     1≠+/n.List.SelItems:TellMaxOne n
+     ind←n.List.SelItems⍳1
+     filename←n.∆Form.∆Path,(ind⊃n.List.Items),'.dcf'
+     noOf←A.ToNum 2⊃n.List.ReportInfo[ind;]
+     _←n Process filename noOf
+     0
+ }

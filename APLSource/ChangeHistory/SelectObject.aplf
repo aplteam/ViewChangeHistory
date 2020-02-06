@@ -1,0 +1,21 @@
+ (name filename)←SelectObject(path project name);n;parms;∆;list
+⍝ Returns either the name and path of the object selected by the user or `⍬ ⍬` in case she'd cancelled.
+ (name filename)←⍬ ⍬
+ :If 1<≢list←('recursive' 1)('type'(0 9))##.FilesAndDirs.Dir path,'change_history/'
+     list←1↓⍉↑list
+     list[;2]←↓'ZI4,<->,ZI2,<->,ZI2,< >,ZI2,<:>,ZI2,<:>,ZI2'⎕FMT 6↑[2]↑list[;2]
+     n←project CreateMainGUI path
+     n.∆Form.∆Path←'change_history'{⍵↑⍨(≢⍺)+1⍳⍨⍺⍷⍵}⊃list
+     n.List.Items←(≢n.∆Form.∆Path)↓¨¯4↓¨list[;1]
+     n.List.ReportInfo←⍪list[;2]
+     n.List.ReportInfo,←{(-≢⍕⌈/⍵)↑∘⍕¨⍵}GetNoOfChanges¨list[;1]
+     n.List.∆AplNames←project∘GetAplNameFrom¨n.List.Items
+     n.List.ReportInfo,←'NY'[1+0<⎕NC↑n.List.∆AplNames]
+     n.List.ReportInfo,←⊂''  ⍝ Notifies any actions, like deletions
+     n.List{2 ⎕NQ ⍺'SetColSize'⍵ ¯3 1}¨⍳1+2⊃⍴n.List.ReportInfo
+     n.List.SelItems←1↑⍨≢n.List.Items
+     {}SetFocusTo n.List 1
+     n.List DQ n.∆Form
+     :Trap 6 ⋄ 2 ⎕NQ n.∆Form'Close' ⋄ :EndTrap
+ :EndIf
+ ⍝Done

@@ -1,0 +1,64 @@
+ {r}←n Process(filename noOf);∆;parms;tno;n2;ref1;ref2;gitFlag
+ r←⍬
+ gitFlag←##.FilesAndDirs.IsDir'.git'
+ noOf+←gitFlag
+ parms←G.StdForm.CreateParms
+ parms.caption←'Components of ',¯4↓filename
+ parms.hasStatusbar←0
+ parms.hasVersionField←0
+ parms.(hGap vGap)←5 10
+ parms.parent←n.∆Form
+ n2←G.StdForm.Create parms
+ n2.∆Form G.APLGuiHelpers.CenterIn n.∆Form
+
+ tno←filename ⎕FSTIE 0
+ n2.∆Form.∆Filename←filename
+ n2.∆Form.∆Tno←tno
+ n2.∆Form.∆GitFlag←gitFlag
+
+ ∆←''
+ ∆,←⊂'Posn'(0 0)
+ ∆,←⊂'Size'n2.∆Form.Size
+ ∆,←⊂'ShowInput' 1
+ ∆,←⊂'Attach'('Top' 'Left' 'Bottom' 'Right')
+ n2.Grid←n2.∆Form.⎕NEW'Grid'∆
+ ref1←n2.Grid.⎕NEW'Button'(⊂('Style' 'Radio'))
+ ref1.onSelect←'OnSelectRadioButton'
+ ref2←n2.Grid.⎕NEW⊂'Label'
+ n2.Grid.Input←ref1 ref1 ref2
+ n2.Grid.CellTypes←(noOf,4)⍴1 2 3 3
+ n2.Grid.TitleWidth←40
+ n2.Grid.CellWidths←30 30 160 170
+ n2.Grid.ColTitles←'' '' 'Author' 'Changed at'
+ n2.Grid.Values←(noOf,4)⍴0 0 '' ''
+ n2.Grid.Values[1;1]←1
+ n2.Grid.Values[2;2]←1
+ n2.Grid.Values[;3 4]←2↑[2]GetDateAndAuthor tno noOf gitFlag
+ n2.Grid.on9999←'On9999'
+
+ ∆←''
+ ∆,←⊂'Caption' '&Compare'
+ ∆,←⊂'Default' 1
+ ∆,←⊂'Attach'('Bottom' 'Left' 'Bottom' 'Left')
+ ∆,←⊂'Size'(⍬ 110)
+ n2.Process←n2.∆Form.⎕NEW'Button'∆
+ n2.Process.Posn[1]←n2.∆Form.Size[1]-n2.Process.Size[1]+parms.vGap
+ n2.Process.Posn[2]←parms.hGap
+ n2.Process.onSelect←'OnCompare'
+
+ ∆←''
+ ∆,←⊂'Caption' '&Quit'
+ ∆,←⊂'Cancel' 1
+ ∆,←⊂'Attach'('Bottom' 'Left' 'Bottom' 'Left')
+ ∆,←⊂'Size'(⍬ 110)
+ n2.Quit←n2.∆Form.⎕NEW'Button'∆
+ n2.Quit.Posn[1]←n2.Process.Posn[1]
+ n2.Quit.Posn[2]←parms.hGap+2⊃AddPosnSize n2.Process
+ n2.Quit.onSelect←1
+
+ n2.Grid.onContextMenu←'OnContextMenuOnGrid'
+
+ ⎕DQ n2.∆Form
+ ⎕FUNTIE tno
+ :Trap 6 ⋄ 2 ⎕NQ n2.∆Form'Close' ⋄ :EndTrap
+⍝D

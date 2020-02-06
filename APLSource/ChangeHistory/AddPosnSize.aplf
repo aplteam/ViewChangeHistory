@@ -1,0 +1,3 @@
+ AddPosnSize←{
+     +⌿↑⍵.(Posn Size)
+ }

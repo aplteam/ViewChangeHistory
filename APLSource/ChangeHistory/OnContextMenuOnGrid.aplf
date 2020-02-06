@@ -1,0 +1,14 @@
+ OnContextMenuOnGrid←{
+     n←GetRef2n 1⊃,⍵
+     mm←⎕NS''
+     mm.Menu←⎕NEW⊂'Menu'
+     name←¯4↓'change_history'{⍵↓⍨(≢⍺)+1⍳⍨⍺⍷⍵}n.∆Form.∆Filename
+     name←{⍵↓⍨-'.'⍳⍨⌽⍵}name
+     ((name∊'/\')/name)←'.'
+     name←n2.∆Form.##.n.∆WsPath,'.',name
+     flag←0<⎕NC name
+     mm.Edit←mm.Menu.⎕NEW'MenuItem'(('Caption' 'Edit')('Active'flag))
+     mm.Mark←mm.Menu.⎕NEW'MenuItem'(('Caption' 'Mark')('Active'flag))
+     res←⎕DQ mm.Menu
+     ∘∘∘
+ }

@@ -1,0 +1,46 @@
+ OnSelectFilter msg;n;t;items;b;noOf;bool
+ n←GetRef2n 1⊃,msg
+ :If 0<n.List.⎕NC'∆Hits'
+ :AndIf ⍬≢n.List.∆Hits
+     (noOf bool)←n.List.∆Hits
+     n.StatusField1.Text←(⍕+/bool),' of ',(⍕noOf),' hits'
+     n.List.SelItems←(≢n.List.SelItems)⍴0
+     n.List.SelItems[bool⍳1]←1
+     SetFocusTo n.List(n.List.SelItems⍳1)
+     bool[bool⍳1]←0
+     n.List.∆Hits←noOf bool
+     :If 0=+/bool
+         n.List.∆Hits←⍬
+         n.Go.Caption←'&Go'
+         n.Go.Tip←''
+         n.Go.Accelerator←⍬
+     :EndIf
+ :Else
+     t←n.Filter.Text
+     n.StatusField1.Text←''
+     →(0=≢t)/0
+     :If ∨/'/\'∊t
+         ∘∘∘Handle path  ⍝TODO⍝
+     :Else
+         items←{{⍵↑⍨¯1+⍵⍳'.'}⍵↑⍨-¯1+⌊/'/\'⍳⍨⌽⍵}¨n.List.Items
+         :If 0=noOf←+/b←∨/¨t∘⍷¨items
+             n.StatusField1.Text←'No hits'
+             n.Next.Active←0
+         :Else
+             :If 1<noOf
+                 n.StatusField1.Text←'First of ',(⍕noOf),' hits'
+             :Else
+                 n.StatusField1.Text←'One hit'
+             :EndIf
+             n.List.SelItems←(≢n.List.SelItems)⍴0
+             n.List.SelItems[b⍳1]←1
+             SetFocusTo n.List(n.List.SelItems⍳1)
+             b[b⍳1]←0
+             n.List.∆Hits←noOf b
+             n.Go.Caption←'&Next'
+             n.Go.Tip←'Shortcut: F3'
+             n.Go.Accelerator←114 0
+         :EndIf
+     :EndIf
+ :EndIf
+⍝Done

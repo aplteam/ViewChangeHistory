@@ -1,0 +1,3 @@
+ {r}←GetsFocus DQ ref
+ ⎕NQ GetsFocus'GotFocus' ⋄ r←⎕DQ ref
+⍝Done
