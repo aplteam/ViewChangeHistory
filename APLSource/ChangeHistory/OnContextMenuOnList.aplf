@@ -1,18 +1,22 @@
  OnContextMenuOnList←{
      n←GetRef2n 1⊃,⍵
+     0=≢n.List.ReportInfo:0
      mm←⎕NS''
      mm.Menu←⎕NEW⊂'Menu'
+     mm.Menu.n←n
      name←⊃n.List.(SelItems/Items)
      name←{⍵↓⍨-'.'⍳⍨⌽⍵}name
      ((name∊'/\')/name)←'.'
      ind←n.List.SelItems⍳1
-     flag←1<A.ToNum 2⊃n.List.ReportInfo[ind;]
-     mm.Process←mm.Menu.⎕NEW'MenuItem'(('Caption' 'Process...')('Active'flag))
+     flag1←1<A.ToNum 2⊃n.List.ReportInfo[ind;]
+     mm.Process←mm.Menu.⎕NEW'MenuItem'(('Caption' 'Process...')('Active'flag1))
      mm.Process.onSelect←'OnProcessObjects'
-     flag←0<⎕NC ind⊃n.List.∆AplNames
-     mm.Edit←mm.Menu.⎕NEW'MenuItem'(('Caption' 'Edit ')('Active'flag))
+     flag1←0<⎕NC ind⊃n.List.∆Bool/n.List.∆Data[;6]
+     mm.Edit←mm.Menu.⎕NEW'MenuItem'(('Caption' 'Edit ')('Active'flag1))
      mm.Edit.onSelect←'OnEditInMainList'
-     mm.Delete←mm.Menu.⎕NEW'MenuItem'(('Caption' 'Delete file')('Active'(~flag)))
+     mm.sep1←mm.Menu.⎕NEW⊂'Separator'
+     flag2←##.FilesAndDirs.IsFile n.∆Form.∆Path,(⊃n.List.(SelItems/Items)),'.dcf'
+     mm.Delete←mm.Menu.⎕NEW'MenuItem'(('Caption' 'Delete file...')('Active'(flag2∧~flag1)))
      mm.Delete.onSelect←'OnDeleteInMainList'
      _←⎕DQ mm.Menu
      0

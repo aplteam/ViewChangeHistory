@@ -1,15 +1,27 @@
- {r}←n Process(filename noOf);∆;parms;tno;n2;ref1;ref2;gitFlag
+ {r}←n Process(filename noOf);∆;parms;tno;n2;ref1;ref2;gitFlag;b
+⍝ Processes a particular component file. Returns ⍬ except when `TEST_FLAG` exists and is 1, then `r` is `n`.
  r←⍬
- gitFlag←##.FilesAndDirs.IsDir'.git'
+ gitFlag←IsGitManaged
  noOf+←gitFlag
  parms←G.StdForm.CreateParms
- parms.caption←'Components of ',¯4↓filename
- parms.hasStatusbar←0
+ parms.caption←'Process object'
+ parms.hasStatusbar←1
  parms.hasVersionField←0
  parms.(hGap vGap)←5 10
  parms.parent←n.∆Form
- n2←G.StdForm.Create parms
- n2.∆Form G.APLGuiHelpers.CenterIn n.∆Form
+ parms.size←450 600
+ n2←G.StdForm.Create parms n.∆globalParms
+ n2.StatusField1.Text←¯4↓filename
+
+ n2.MyTipField←n2.∆Form.⎕NEW⊂'TipField'
+ n2.∆Menu←⎕NS''
+ n2.∆Menu.Menubar←n2.∆Form.⎕NEW⊂'Menubar'
+ n2.∆Menu.MenuQuit←n2.∆Menu.Menubar.⎕NEW'Menu'(('Caption' '&File')('Active' 1))
+ n2.∆Menu.Quit←n2.∆Menu.MenuQuit.⎕NEW'MenuItem'(('Caption'('Quit',TAB,'Escape'))('Accelerator'(27 0)))
+ n2.∆Menu.Quit.onSelect←1
+ n2.∆Menu.MenuEdit←n2.∆Menu.Menubar.⎕NEW'Menu'(('Caption' '&Edit')('Active' 1))
+ n2.∆Menu.Compare←n2.∆Menu.MenuEdit.⎕NEW'MenuItem'(('Caption'('Compare',TAB,'='))('Accelerator'(187 0)))
+ n2.∆Menu.Compare.onSelect←'OnCompare'
 
  tno←filename ⎕FSTIE 0
  n2.∆Form.∆Filename←filename
@@ -17,7 +29,7 @@
  n2.∆Form.∆GitFlag←gitFlag
 
  ∆←''
- ∆,←⊂'Posn'(0 0)
+ ∆,←⊂'Posn'(5 5)
  ∆,←⊂'Size'n2.∆Form.Size
  ∆,←⊂'ShowInput' 1
  ∆,←⊂'Attach'('Top' 'Left' 'Bottom' 'Right')
@@ -25,40 +37,30 @@
  ref1←n2.Grid.⎕NEW'Button'(⊂('Style' 'Radio'))
  ref1.onSelect←'OnSelectRadioButton'
  ref2←n2.Grid.⎕NEW⊂'Label'
- n2.Grid.Input←ref1 ref1 ref2
+ n2.Grid.Input←ref1 ref1 ref2 ref1 ref1 ref2
+ n2.Grid.BCol←0 0 0,3⍴⊂(180 255 255)
  n2.Grid.CellTypes←(noOf,4)⍴1 2 3 3
  n2.Grid.TitleWidth←40
  n2.Grid.CellWidths←30 30 160 170
  n2.Grid.ColTitles←'' '' 'Author' 'Changed at'
  n2.Grid.Values←(noOf,4)⍴0 0 '' ''
  n2.Grid.Values[1;1]←1
- n2.Grid.Values[2;2]←1
+ n2.Grid.Values[≢n2.Grid.Values;2]←1
  n2.Grid.Values[;3 4]←2↑[2]GetDateAndAuthor tno noOf gitFlag
+ b←(-noOf)↑GetMarkerFromDCF tno noOf gitFlag
+ (b⌿n2.Grid.CellTypes)←3+b⌿n2.Grid.CellTypes
  n2.Grid.on9999←'On9999'
 
- ∆←''
- ∆,←⊂'Caption' '&Compare'
- ∆,←⊂'Default' 1
- ∆,←⊂'Attach'('Bottom' 'Left' 'Bottom' 'Left')
- ∆,←⊂'Size'(⍬ 110)
- n2.Process←n2.∆Form.⎕NEW'Button'∆
- n2.Process.Posn[1]←n2.∆Form.Size[1]-n2.Process.Size[1]+parms.vGap
- n2.Process.Posn[2]←parms.hGap
- n2.Process.onSelect←'OnCompare'
-
- ∆←''
- ∆,←⊂'Caption' '&Quit'
- ∆,←⊂'Cancel' 1
- ∆,←⊂'Attach'('Bottom' 'Left' 'Bottom' 'Left')
- ∆,←⊂'Size'(⍬ 110)
- n2.Quit←n2.∆Form.⎕NEW'Button'∆
- n2.Quit.Posn[1]←n2.Process.Posn[1]
- n2.Quit.Posn[2]←parms.hGap+2⊃AddPosnSize n2.Process
- n2.Quit.onSelect←1
-
+ n2.Grid.Size[1]←n2.∆Form.Size[1]-parms.vGap+n2.Statusbar.Size[1]
+ n2.Grid.Size[2]←n2.∆Form.Size[2]-10
  n2.Grid.onContextMenu←'OnContextMenuOnGrid'
 
- ⎕DQ n2.∆Form
+ DQ n2.∆Form
  ⎕FUNTIE tno
- :Trap 6 ⋄ 2 ⎕NQ n2.∆Form'Close' ⋄ :EndTrap
-⍝D
+ :If 0=⎕NC'TEST_FLAG'
+ :OrIf 0=TEST_FLAG
+     :Trap 6 ⋄ 2 ⎕NQ n2.∆Form'Close' ⋄ :EndTrap
+ :Else
+     r←n2
+ :EndIf
+⍝Done

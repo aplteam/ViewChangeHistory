@@ -1,0 +1,5 @@
+ GetListIndex←{
+     n←⍵
+     0=+/n.List.SelItems:1
+     n.List.SelItems⍳1
+ }

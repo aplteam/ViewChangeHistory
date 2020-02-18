@@ -1,13 +1,10 @@
- OnDeleteInMainList←{
-     n←GetRef2n 1⊃,⍵
-     parms←G.Dialogs.CreateParmsForYesOrNo
-     parms.caption←'Change History'
-     parms.centerIn←n.∆Form
-     msg←'Are you sure that you want delete this file?' ''
-     msg,←n.List.(SelItems/Items)
-     0=parms G.Dialogs.YesOrNo msg:0
+ OnDeleteInMainList msg;n;parms;filename
+ n←GetRef2n 1⊃,msg
+ msg←'Are you sure that you want delete this file?' ''
+ msg,←n.List.(SelItems/Items)
+ :If n.∆globalParms G.Dialogs.YesOrNo msg
      filename←n.∆Form.∆Path,(⊃n.List.(SelItems/Items)),'.dcf'
-     _←##.FilesAndDirs.DeleteFile
-     n.List.ReportInfo[n.List.SelItems⍳1;4]←⊂'File deleted'
-     0
- }
+     {}##.FilesAndDirs.DeleteFile filename
+     n.List.ReportInfo[n.List.SelItems⍳1;4]←⊂'Deleted'
+ :EndIf
+⍝Done

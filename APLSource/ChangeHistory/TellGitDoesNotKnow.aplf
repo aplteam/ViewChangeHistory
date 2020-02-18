@@ -1,0 +1,7 @@
+ {r}←n TellGitDoesNotKnow name;parms
+ r←⍬
+ parms←##.APLGUI.Dialogs.CreateParmsForShowMsg
+ parms.addToCaption←'Problem'
+ parms.cancelButton←0
+ {}n.∆globalParms parms ##.APLGUI.Dialogs.ShowMsg'Git does not know anything about this object:' ''name
+⍝Done

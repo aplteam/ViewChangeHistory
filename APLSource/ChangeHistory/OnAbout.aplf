@@ -1,0 +1,12 @@
+ OnAbout←{
+     n←GetRef2n 1⊃,⍵
+     msg←''
+     msg,←⊂'"ChangeHistory" is an acre tool written by Kai Jaeger'
+     msg,←⊂''
+     msg,←⊂'Icon made by Pixel perfect from www.flaticon.com'
+     msg,←⊂''
+     msg,←⊂'Version ',(2⊃Version),' from ',3⊃Version
+     msg,←⊂''
+     _←n.∆globalParms G.Dialogs.ShowMsg msg
+     0
+ }

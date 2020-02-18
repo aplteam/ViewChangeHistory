@@ -1,0 +1,4 @@
+ {r}←CopyOnAfterSaveToQSE
+⍝ Use this to copy the `OnAfterSave` function to `⎕SE`
+ r←⍬
+ ⎕SE.⎕FX ⎕CR'OnAfterSave'

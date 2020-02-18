@@ -1,13 +1,37 @@
- {r}←{project}Run name;tno;filename;G;A;path;nsPath;data
+ {r}←{homePath}Run project;tno;filename;G;A;path;nsPath;data;n;∆HOME_PATH
 ⍝ All change files are presented in a GUI. If `name` is not empty we try to identify the object and
 ⍝ pre-select it. The user can then click the `Process` button in order to see a list of all components
 ⍝ saved for that particualar object. She can then compare any two of them.\\
 ⍝ If `project` is undefined or empty the default project rules. Otherwise `project` must be the fully
 ⍝ qualified name of a namespace that hosts an acre project.\\
+⍝ `homePath` is used only in ytest cases.\\
+⍝ `r` is `⍬` unless TEST_FLAG exists and is 1, then it is a ref to the `n` namespace.
  r←⍬
+ ∆HOME_PATH←{0<⎕NC ⍵:⍎⍵ ⋄ ''}'homePath'
  A←##.APLTreeUtils ⋄ G←##.APLGUI
- :If 0=⎕NC'project'
-     (project path)←⎕SE.APLGit.EstablishProject''
+ ##.APLGit.U.Init
+ :If 0=⎕SE.⎕NC'acre'
+     :Trap 0
+         ⎕SE.UCMD'acre.projects'
+     :Else
+         ⎕←'acre is not available; ]ChangeHistory cannot continue'
+         :Return
+     :EndTrap
  :EndIf
- (name filename)←SelectObject path project name
+ :If 0=⎕SE.⎕NC'acre'
+     ⎕←'acre is not available; ]ChangeHistory cannot continue'
+     :Return
+ :EndIf
+ :If 0=≢project
+     (project path)←2↑##.APLGit.EstablishProject''
+ :EndIf
+ :If ##.FilesAndDirs.IsDir path,GetChangeHistoryFolder,'/'
+     n←SelectObject path project
+     :If 0<⎕NC'TEST_FLAG'
+     :AndIf 1=TEST_FLAG
+         r←n
+     :EndIf
+ :Else
+     ⎕←'Folder not found: ',path,GetChangeHistoryFolder,'/'
+ :EndIf
 ⍝Done

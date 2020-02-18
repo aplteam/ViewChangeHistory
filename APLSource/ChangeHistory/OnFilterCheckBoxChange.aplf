@@ -1,0 +1,4 @@
+ OnFilterCheckBoxChange←{
+     n←GetRef2n 1⊃,⍵
+     1⊣⎕NQ n.Filter 9999
+ }

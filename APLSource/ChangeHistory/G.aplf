@@ -1,0 +1,3 @@
+ r←G
+⍝ To make it work with test cases. Normally G is a local ref created in `Run`
+ r←##.APLGUI

@@ -1,0 +1,12 @@
+ {r}←n TellDoesNotExist names;parms;msg
+ r←⍬
+ parms←##.APLGUI.Dialogs.CreateParmsForShowMsg
+ parms.addToCaption←'Warning'
+ parms.cancelButton←0
+ :If 1=≢names
+     msg←'This object does not exist:' ''(⊃names)
+ :Else
+     msg←'These objects do not exist:' '',names
+ :EndIf
+ {}n.∆globalParms parms ##.APLGUI.Dialogs.ShowMsg msg
+⍝Done

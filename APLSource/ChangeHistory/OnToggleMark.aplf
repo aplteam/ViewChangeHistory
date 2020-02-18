@@ -1,0 +1,12 @@
+ OnToggleMark←{
+     n←GetRef2n 1⊃,⍵
+     tno←n.∆Form.∆Tno
+     row←1+n.Grid.CurCell[1]
+     1=row:TellCannotMarkGitVersion n
+     compNo←row-n.∆Form.∆GitFlag
+     data←⎕FREAD tno compNo
+     data[3]←~data[3]
+     _←data ⎕FREPLACE tno compNo
+     _←n PaintRow row(data[3])
+     0
+ }

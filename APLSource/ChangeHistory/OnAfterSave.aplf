@@ -1,0 +1,36 @@
+ {r}←acreConfig OnAfterSave(objName filePath);⎕TRAP;filename;tno;body;date;nc;⎕ML;⎕IO
+⍝ This function is called by acre in case of an `AfterSave`.\\
+⍝ Saves the new version of `objName` in the `change_history` folder which will be created if
+⍝ it does not already exist.\\
+⍝ The namespace structure (if any) of the acre project identified by ⍺ is reflected by folders.
+⍝ The object as such has the same name as the corresponding file in the `APLSource/` folder,
+⍝ excepts that it also carries a postfix `.dcf', so it carries two rather than one dot.\\
+⍝ Note that this function is called **after** acre has saved a change, so the original version
+⍝ it all started with cannot be found in change_history/; the only way around this is when
+⍝ the project is Git-managed, because then that version can be retrieved from Git.\\
+⍝ Every component that is added due to a change contains six items:\\
+⍝ 1. The user name (`⎕AN`) who performed the change
+⍝ 2. The date of the change
+⍝ 3. A 0. This can be used to mark any component with a 1.
+⍝ 4. The detailed name class of the object
+⍝ 5. A reserved (and currently not used) item
+⍝ 6. The content if it is a variable or the code of the object in all other cases.\\
+⍝ Version 1.0.0 from 2020-02-09 ⋄ Kai Jaeger
+ ⎕IO←1 ⋄ ⎕ML←1
+ :If 0
+     ⎕TRAP←0 'S'
+ :EndIf
+ filename←acreConfig.ProjectFolder,'change_history/',('APLSource'{⍵↓⍨(≢⍺)+1⍳⍨⍺⍷⍵}filePath),'.dcf'
+ 3 ⎕MKDIR 1⊃⎕NPARTS filename
+ :If 0=⎕NEXISTS filename
+     tno←filename ⎕FCREATE 0
+     ⎕FUNTIE tno
+ :EndIf
+ tno←filename ⎕FSTIE 0
+ body←{9≠⎕NC objName:⎕NR ⍵ ⋄ 2 6 11::⍬ ⋄ ⎕SRC⍎⍵}objName
+ date←,'ZI4,<->,ZI2,<->,ZI2,< >,ZI2,<:>,ZI2,<:>,ZI2'⎕FMT 1 6⍴⎕TS
+ nc←⎕NC⊂objName
+ ⎕AN date 0 nc ⍬ body ⎕FAPPEND tno
+ r←'Object <',objName,'> saved in change_history/'
+ ⎕FUNTIE tno
+⍝Done

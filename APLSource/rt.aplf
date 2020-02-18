@@ -1,0 +1,7 @@
+ rt
+ ⍝ Run with test data; see also r
+ ChangeHistory.TEST_DIR←'TestData\change_history'
+ ChangeHistory.TEST_GIT_FLAG←0
+ ChangeHistory.Run''
+ ChangeHistory.Reset
+⍝Done

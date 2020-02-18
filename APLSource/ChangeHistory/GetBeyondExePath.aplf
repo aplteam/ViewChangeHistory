@@ -1,0 +1,18 @@
+ r←GetBeyondExePath n;rk;parms;buff
+ rk←'HKCU\Software\APLTeam\ChangeHistory\BeyondCompareExePath'
+ :If ##.WinRegSimple.Exists rk
+     r←##.WinRegSimple.Read rk
+ :Else
+     r←'"C:\Program Files\Beyond Compare 4\BCompare___.exe"'
+ :EndIf
+ :If ~##.FilesAndDirs.IsFile r
+     parms←G.FileBox.CreateParms
+     parms.filters←⊂'*.exe' 'Executables (*.exe)'
+     parms.addToCaption←'Find the BeyondCompare EXE'
+     parms.parent←n.∆Form
+     r←n.∆globalParms parms G.FileBox.Run'C:\'
+     :If 0<≢r
+         ##.WinRegSimple.Write rk r
+     :EndIf
+ :EndIf
+⍝Done

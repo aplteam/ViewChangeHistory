@@ -1,7 +1,8 @@
- n←projectName CreateMainGUI path;n;parms;∆
+ n←projectName CreateMainGUI path;n;parms;∆;ref;globalParms
 ⍝ Creates the GUI that puts **all** change files on display
  parms←G.StdForm.CreateParms
  parms.caption←'History of ',projectName
+ parms.caption,←{0=⎕NC ⍵:'' ⋄ ' --- uses folder ',(⍎⍵)}'TEST_DIR'
  parms.hasStatusbar←1
  parms.hasVersionField←0
  parms.(hGap vGap)←5 10
@@ -9,11 +10,16 @@
      parms.posn←∆PosnTreeForm
      parms.size←∆SizeTreeForm
  :EndIf
- n←G.StdForm.Create parms
+ globalParms←G.APLGuiGlobalParms.CreateDefaults
+ globalParms.caption←'ChangeHistory'
+ globalParms.icon←⎕NEW'Icon'(⊂'File'(∆HOME_PATH,'ChangeHistory.ico'))
+ n←G.StdForm.Create parms globalParms
+ n.∆globalParms.centerIn←n.∆Form
  n.∆Form.onClose←'OnCloseTreeForm'
  n.∆Form.∆ProjectPath←path
 
  n.MyTipField←n.∆Form.⎕NEW⊂'TipField'
+ n.APLfont←⎕NEW'Font'(('PName' 'APL385 Unicode')('Size'(2⊃⎕SE.FontObj)))
 
  n←CreateMenuBarInMainForm n
 
@@ -22,38 +28,60 @@
  ∆,←⊂'Caption' '&Filter:'
  ∆,←⊂'Attach'('Top' 'Left' 'Top' 'Left')
  n.LabelFilter←n.∆Form.⎕NEW'Label'∆
+ n.LabelFilter.Size[2]←2⊃n.LabelFilter.GetTextSize n.LabelFilter.Caption
 
  ∆←''
  ∆,←⊂'Posn'(parms.vGap,2⊃AddPosnSize n.LabelFilter)
  ∆,←⊂'Attach'('Top' 'Left' 'Top' 'Right')
  ∆,←⊂'HasClearButton' 1
+ ∆,←⊂'FontObj'n.APLfont
  n.Filter←n.∆Form.⎕NEW'Edit'∆
  n.Filter.onMouseUp←'OnMouseUpInFilter'
+ n.Filter.onKeyPress←'OnKeyPressInFilter'
+ n.Filter.on9999←'On9999InFilter'
+ ref←n.∆Form.⎕NEW'Button'(('Caption' 'WWW')('Visible' 0))
+ n.Filter.Size[1]←ref.Size[1]
+ ref.Close
 
  ∆←''
- ∆,←⊂'Posn'(parms.vGap,n.∆Form.Size[2]-parms.hGap+80)
- ∆,←⊂'Size'(⍬ 80)
- ∆,←⊂'Caption' '&Go'
- ∆,←⊂'TipObj'n.MyTipField
+ ∆,←⊂'Caption' '&Match case'
+ ∆,←⊂'Style' 'Check'
  ∆,←⊂'Attach'('Top' 'Right' 'Top' 'Right')
- n.Go←n.∆Form.⎕NEW'Button'∆
- n.Go.onSelect←'OnSelectFilter'
+ n.MatchCase←n.∆Form.⎕NEW'Button'∆
 
- n.Filter.Size←(n.Go.Size[1])(n.∆Form.Size[2]-(3×parms.hGap)+(2⊃AddPosnSize n.LabelFilter)+n.Go.Size[2])
+ ∆←''
+ ∆,←⊂'Caption' 'Is &RegEx'
+ ∆,←⊂'Style' 'Check'
+ ∆,←⊂'Attach'('Top' 'Right' 'Top' 'Right')
+ n.IsRegEx←n.∆Form.⎕NEW'Button'∆
 
- n.APLfont←⎕NEW'Font'(('PName' 'APL385 Unicode')('Size'(2⊃⎕SE.FontObj)))
+ ∆←''
+ ∆,←⊂'Caption' '&Include path'
+ ∆,←⊂'Style' 'Check'
+ ∆,←⊂'Attach'('Top' 'Right' 'Top' 'Right')
+ n.IncludePath←n.∆Form.⎕NEW'Button'∆
+
+ n.(MatchCase IsRegEx IncludePath).onSelect←⊂'OnFilterCheckBoxChange'
+
+ n.IncludePath.Posn←n.Filter.Posn[1],n.∆Form.Size[2]-n.IncludePath.Size[2]+parms.hGap
+ n.IsRegEx.Posn←n.Filter.Posn[1],n.IncludePath.Posn[2]-parms.hGap+n.IncludePath.Size[2]
+ n.MatchCase.Posn←n.Filter.Posn[1],n.IsRegEx.Posn[2]-parms.hGap+n.MatchCase.Size[2]
+ n.Filter.Size[2]←n.∆Form.Size[2]-(+/2⊃¨n.(MatchCase IsRegEx LabelFilter IncludePath).Size)+12×parms.hGap
 
  ∆←''
  ∆,←⊂'View' 'Report'
  ∆,←⊂'Attach'('Top' 'Left' 'Bottom' 'Right')
- ∆,←⊂'ColTitles'('Path' 'Last changed' 'Changes' 'WS' 'Actions')
+ ∆,←⊂'ColTitles'('Path ↑' 'Last changed  ' 'Changes  ' 'WS  ' 'Actions  ')
  ∆,←⊂'FullRowSelect' 1
  ∆,←⊂'FontObj'n.APLfont
  n.List←n.∆Form.⎕NEW'ListView'∆
-
- n.List.Posn[1]←parms.vGap+⊃AddPosnSize n.Go
+ n.List.Posn[1]←parms.vGap+⊃AddPosnSize n.Filter
  n.List.Posn[2]←parms.hGap
- n.List.Size[1]←n.∆Form.Size[1]-(3×parms.vGap)+n.Statusbar.Size[1]+n.Go.Size[1]
+ n.List.Size[1]←n.∆Form.Size[1]-(3×parms.vGap)+n.Statusbar.Size[1]+n.Filter.Size[1]
  n.List.Size[2]←n.∆Form.Size[2]-2×parms.hGap
  n.List.onContextMenu←'OnContextMenuOnList'
+ n.List.onColumnClick←'OnColumnClickInList'
+ n.List.onMouseDblClick←'OnMouseDblClickInList'
+ n.List.onKeyPress←'OnKeyPressInList'
+ n.List.∆Sort←1 1   ⍝ First is sort order (1=up, 0=down), second is column
  ⍝Done

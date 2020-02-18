@@ -1,0 +1,21 @@
+ {r}←{path}Discard promptFlag;A;project;F;rc;en;more
+⍝ This checks whether `path` is a directory and if soc the user is prompted for really deleting it.
+⍝ Returns 1 in case something was deleted and 0 otherwise.
+⍝ In case the attempt to delete the folder leads to an error an error is signalled if tests are running.
+ r←0
+ A←##.APLTreeUtils ⋄ F←##.FilesAndDirs
+ ##.APLGit.U.Init
+ :If 0=⎕NC'path'
+     (project path)←2↑##.APLGit.EstablishProject''
+ :EndIf
+ :If F.IsDir path
+     :If GetTestFlag
+     :OrIf YesOrNo'Sure that you want remove this folder: ',path,' ?'
+         (rc en more)←F.RmDir path
+         Assert GetTestFlag{⍺:⍵ ⋄ 1}rc=0
+         r←rc=0
+     :EndIf
+ :Else
+     ⎕←'Folder not found: ',path,GetChangeHistoryFolder,'/'
+ :EndIf
+⍝Done

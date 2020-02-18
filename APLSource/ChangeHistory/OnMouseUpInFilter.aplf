@@ -1,11 +1,3 @@
  OnMouseUpInFilter←{
-⍝ When the user clicks the "Clear" button we can find out only by checking the contents
-⍝ of the "Filter" field, there is no other way.
-     n←GetRef2n 1⊃,⍵
-     ~(0=≢n.Filter.Text)∧(n.Go.Caption~'&')≡'Next':0
-     n.Go.Tip←''
-     n.Go.Caption←'&Go'
-     n.List.∆Hits←⍬
-     n.StatusField1.Text←''
-     0
+     1⊣⎕NQ(1⊃,⍵)9999
  }

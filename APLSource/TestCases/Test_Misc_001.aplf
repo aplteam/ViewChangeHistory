@@ -1,0 +1,26 @@
+ R←Test_Misc_001(stopFlag batchFlag);⎕IO;⎕ML;⎕TRAP;n;row;n2;shape;expected
+⍝ Runs the `Run` as well as the `Process` function
+ ⎕IO←1 ⋄ ⎕ML←1
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+
+ R←T._Failed
+
+ n←##.ChangeHistory.Run''
+ →T.GoToTidyUp~∨/'History of #.ChangeHistory --- uses folder'⍷n.∆Form.Caption
+ →T.GoToTidyUp 0≥≢n.List.Items
+
+ row←1⍳⍨1<⊃∘##.APLTreeUtils.ToNum¨n.List.ReportInfo[;2]
+ n.List.SelItems[]←0
+ n.List.SelItems[row]←1
+ ##.ChangeHistory.SetFocusTo n.List row
+ n2←⊃##.ChangeHistory.ProcessObjects n
+ shape←⍴n2.Grid.Values
+ expected←⊃(##.APLTreeUtils.ToNum⊃n.List.ReportInfo[row;2])
+ →T.GoToTidyUp expected≢⊃shape
+
+ R←T._OK
+
+∆TidyUp:
+ :Trap 0 ⋄ 2 ⎕NQ n2.∆Form'CLose' ⋄ :EndTrap
+ :Trap 0 ⋄ 2 ⎕NQ n.∆Form'CLose' ⋄ :EndTrap
+⍝Done

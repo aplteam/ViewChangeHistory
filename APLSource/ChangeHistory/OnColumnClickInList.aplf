@@ -1,0 +1,5 @@
+ OnColumnClickInList msg;n
+⍝ Sorts the column clicked at
+ n←GetRef2n 1⊃,msg
+ n SortColumn 3⊃msg
+⍝Done

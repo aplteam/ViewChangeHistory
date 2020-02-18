@@ -1,0 +1,6 @@
+* 1.0.1 ⋄ 2020-02-18
+  * Bug fixes:
+    * In case an object was changed just once the user was prevented from comparing that changed version with the Git version.
+    * +/List.SelItems is occasionally 0 although a row was selected. Now a function checks and returns a 1 in such cases.
+* 1.0.0 ⋄ 2020-02-15
+  * Very first version

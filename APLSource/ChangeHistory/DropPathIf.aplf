@@ -1,0 +1,5 @@
+ DropPathIf←{
+     dropPath←⍺
+     dropPath:⍵
+     {⍵↑⍨1+-⌊/'/\'⍳⍨⌽⍵}⍵
+ }

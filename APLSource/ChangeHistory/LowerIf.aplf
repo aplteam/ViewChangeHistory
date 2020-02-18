@@ -1,0 +1,5 @@
+ LowerIf←{
+     lower←⍺
+     1=lower:⍵
+     A.Lowercase ⍵
+ }

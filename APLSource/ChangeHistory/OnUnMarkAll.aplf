@@ -1,0 +1,7 @@
+ OnUnMarkAll←{
+     n←GetRef2n 1⊃,⍵
+     tno←n.∆Form.∆Tno
+     _←tno∘{data←⎕FREAD ⍺ ⍵ ⋄ data[3]←0 ⋄ data ⎕FREPLACE ⍺ ⍵}¨⍳-/⌽2↑⎕FSIZE tno
+     _←n{⍺ PaintRow ⍵ 0}¨A.Where n.Grid.CellTypes∧.=4 5 6 6
+     0
+ }

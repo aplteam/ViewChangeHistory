@@ -1,0 +1,24 @@
+ On9999InFilter msg;n;txt
+ n←GetRef2n 1⊃,msg
+ txt←n.MatchCase.State LowerIf n.Filter.Text
+ :If 0=≢txt
+     :If (,1)≢,n.List.∆Bool
+         n.List.∆Bool←1
+         1 SetList n
+     :EndIf
+     n.StatusField1.Text←{(⍕⍵),' object',((⍵=0)∨⍵>1)/'s'}≢n.List.Items
+ :Else
+     :If n.IsRegEx.State
+         :Trap 11
+             n.List.∆Bool←(⊂,txt){0<≢⍺ ⎕S 0⍠('IC'(~n.MatchCase.State))⊣⍵}¨n.IncludePath.State DropPathIf¨n.List.∆Data[;1]
+         :Else
+             n.StatusField1.Text←'Invalid Regular Expression'
+             :Return
+         :EndTrap
+     :Else
+         n.List.∆Bool←∨/¨txt∘⍷¨n.IncludePath.State DropPathIf¨n.MatchCase.State LowerIf¨n.List.∆Data[;1]
+     :EndIf
+     1 SetList n
+     n.StatusField1.Text←{(⍕⍵),' object',((⍵=0)∨⍵>1)/'s'}+/n.List.∆Bool
+ :EndIf
+⍝Done

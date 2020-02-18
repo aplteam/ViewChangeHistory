@@ -1,0 +1,6 @@
+ gitFlag←IsGitManaged
+ :If 0=⎕NC'TEST_GIT_FLAG'
+     gitFlag←##.FilesAndDirs.IsDir'.git'
+ :Else
+     gitFlag←TEST_GIT_FLAG
+ :EndIf

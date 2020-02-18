@@ -1,0 +1,5 @@
+ OnHelp←{
+     n←GetRef2n 1⊃,⍵
+     _←⎕SE.UCMD'ADOC ',⍕⎕THIS
+     0
+ }

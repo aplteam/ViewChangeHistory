@@ -1,14 +1,23 @@
- OnContextMenuOnGrid←{
-     n←GetRef2n 1⊃,⍵
-     mm←⎕NS''
-     mm.Menu←⎕NEW⊂'Menu'
-     name←¯4↓'change_history'{⍵↓⍨(≢⍺)+1⍳⍨⍺⍷⍵}n.∆Form.∆Filename
-     name←{⍵↓⍨-'.'⍳⍨⌽⍵}name
-     ((name∊'/\')/name)←'.'
-     name←n2.∆Form.##.n.∆WsPath,'.',name
-     flag←0<⎕NC name
-     mm.Edit←mm.Menu.⎕NEW'MenuItem'(('Caption' 'Edit')('Active'flag))
-     mm.Mark←mm.Menu.⎕NEW'MenuItem'(('Caption' 'Mark')('Active'flag))
-     res←⎕DQ mm.Menu
-     ∘∘∘
- }
+ OnContextMenuOnGrid msg;n;row;col;mm;name;flag;caption;res
+ n←GetRef2n 1⊃,msg
+ (row col)←2 ⎕NQ n.Grid'CellFromPoint',2↑3↓msg
+ n.Grid.CurCell[1]←row
+ mm←⎕NS''
+ mm.Menu←⎕NEW⊂'Menu'
+ mm.Menu.n←n
+ name←¯4↓GetChangeHistoryFolder{⍵↓⍨(≢⍺)+1⍳⍨⍺⍷⍵}n.∆Form.∆Filename
+ name←{⍵↓⍨-'.'⍳⍨⌽⍵}name
+ ((name∊'/\')/name)←'.'
+ name←n.∆Form.##.∆AcreProject,'.',name
+ flag←0<⎕NC name
+ mm.Browse←mm.Menu.⎕NEW'MenuItem'(('Caption' 'Browse code...')('Active'flag))
+ mm.Browse.onSelect←'OnBrowseInGridsList'
+ flag←(~n.∆Form.∆GitFlag)∨row≠1
+ caption←(1+4>⌈/n.Grid.CellTypes[row;])⊃'Unmark component' 'Mark component'
+ mm.Mark←mm.Menu.⎕NEW'MenuItem'(('Caption'caption)('Active'flag))
+ mm.Mark.onSelect←'OnToggleMark'
+ flag←1<+/n.Grid.CellTypes∧.=4 5 6 6
+ mm.UnMarkAll←mm.Menu.⎕NEW'MenuItem'(('Caption' 'Unmark all')('Active'flag))
+ mm.UnMarkAll.onSelect←'OnUnMarkAll'
+ res←⎕DQ mm.Menu
+⍝Done

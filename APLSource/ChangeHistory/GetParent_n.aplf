@@ -1,0 +1,5 @@
+ GetParent_n←{
+⍝ Called from a child (like the "Process object" GUI) this returns the parent's `n`
+     n←⍵
+     n.∆Form.##.n.∆Form.n
+ }

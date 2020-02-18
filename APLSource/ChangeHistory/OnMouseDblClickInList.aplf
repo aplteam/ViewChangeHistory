@@ -1,0 +1,4 @@
+ OnMouseDblClickInList←{
+     n←GetRef2n 1⊃,⍵
+     EditInMainList n
+ }

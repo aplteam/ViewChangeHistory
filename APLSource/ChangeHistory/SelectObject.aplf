@@ -1,21 +1,19 @@
- (name filename)←SelectObject(path project name);n;parms;∆;list
-⍝ Returns either the name and path of the object selected by the user or `⍬ ⍬` in case she'd cancelled.
- (name filename)←⍬ ⍬
- :If 1<≢list←('recursive' 1)('type'(0 9))##.FilesAndDirs.Dir path,'change_history/'
-     list←1↓⍉↑list
+ n←SelectObject(path project);n;parms;∆;list
+⍝ Returns either `⍬` if no change files can be found or `n`
+ n←⍬
+ :If 0<≢list←('recursive' 1)('type'(0 9 1))##.FilesAndDirs.Dir path,GetChangeHistoryFolder,'/'
+     list←⍉↑list
+ :AndIf 0<≢list←(2=list[;3])⌿list[;1 2]
      list[;2]←↓'ZI4,<->,ZI2,<->,ZI2,< >,ZI2,<:>,ZI2,<:>,ZI2'⎕FMT 6↑[2]↑list[;2]
      n←project CreateMainGUI path
-     n.∆Form.∆Path←'change_history'{⍵↑⍨(≢⍺)+1⍳⍨⍺⍷⍵}⊃list
-     n.List.Items←(≢n.∆Form.∆Path)↓¨¯4↓¨list[;1]
-     n.List.ReportInfo←⍪list[;2]
-     n.List.ReportInfo,←{(-≢⍕⌈/⍵)↑∘⍕¨⍵}GetNoOfChanges¨list[;1]
-     n.List.∆AplNames←project∘GetAplNameFrom¨n.List.Items
-     n.List.ReportInfo,←'NY'[1+0<⎕NC↑n.List.∆AplNames]
-     n.List.ReportInfo,←⊂''  ⍝ Notifies any actions, like deletions
+     n.∆Form.∆Path←GetChangeHistoryFolder{⍵↑⍨(≢⍺)+1⍳⍨⍺⍷⍵}⊃list
+     n.∆Form.∆AcreProject←project
+     n.List.∆Bool←1
+     n.List.∆Data←n CollectData project list
+     1 SetList n
      n.List{2 ⎕NQ ⍺'SetColSize'⍵ ¯3 1}¨⍳1+2⊃⍴n.List.ReportInfo
-     n.List.SelItems←1↑⍨≢n.List.Items
      {}SetFocusTo n.List 1
      n.List DQ n.∆Form
-     :Trap 6 ⋄ 2 ⎕NQ n.∆Form'Close' ⋄ :EndTrap
+     {}{6::⍬ ⋄ 2 ⎕NQ ⍵'Close'}⍣(⊃{0=⎕NC ⍵:1 ⋄ 0=⍵}'TEST_FLAG')⊣n.∆Form
  :EndIf
  ⍝Done

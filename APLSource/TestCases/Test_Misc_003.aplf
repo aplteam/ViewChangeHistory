@@ -1,0 +1,20 @@
+ R←Test_Misc_003(stopFlag batchFlag);⎕IO;⎕ML;⎕TRAP;folder
+⍝ Exercise the `Discard` function.
+ ⎕IO←0 ⋄ ⎕ML←3
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+
+ R←T._Failed
+
+ folder←(##.FilesAndDirs.GetTempSubDir↑⎕SI),'/change_history/'
+ 'Create!'##.FilesAndDirs.CheckPath folder
+ ##.APLTreeUtils.WriteUtf8File(folder,'hello.aplf')'Hello←{''World''}'
+ →T.GoToTidyUp 1≠≢('recursive' 1)##.FilesAndDirs.Dir folder
+
+ folder ##.ChangeHistory.Discard 0
+ →T.GoToTidyUp ##.FilesAndDirs.IsDir folder
+
+ R←T._OK
+
+∆TidyUp:
+ :Trap 0 ⋄ ##.FilesAndDirs.RmDir folder ⋄ :EndTrap
+⍝Done

@@ -1,0 +1,12 @@
+ {r}←TellNoBeyondCompare n;parms;msg
+ r←⍬
+ parms←##.APLGUI.Dialogs.CreateParmsForShowMsg
+ parms.addToCaption←'Warning'
+ parms.cancelButton←0
+ msg←''
+ msg,←⊂'Could not find the BeyondCompare EXE.'
+ msg,←⊂'Without BeyondCompare ]ChangeHistory is not very useful,'
+ msg,←⊂'but we try our best. Hit "OK" for seeing the two bodies'
+ msg,←⊂'in two function editor windows.'
+ {}n.∆globalParms parms ##.APLGUI.Dialogs.ShowMsg msg
+⍝Done

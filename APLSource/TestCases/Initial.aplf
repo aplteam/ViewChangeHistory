@@ -1,0 +1,5 @@
+ Initial
+ ##.ChangeHistory.TEST_FLAG←1
+ ##.ChangeHistory.TEST_DIR←'TestData\change_history'
+ ##.ChangeHistory.TEST_GIT_FLAG←0
+ ⍝Done

@@ -1,0 +1,6 @@
+ ClearFilter←{
+     n←⍵
+     n.Filter.Text←''
+     _←⎕NQ n.Filter 9999
+     0
+ }

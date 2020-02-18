@@ -1,0 +1,17 @@
+ r←OnBrowseInGridsList msg;n;row;body;info;name;ref;filename
+ r←0
+ n←GetRef2n 1⊃,msg
+ row←1+n.Grid.CurCell[1]
+ :If (row=1)∧n.∆Form.∆GitFlag
+     body←n GetBodyFromGit GetParent_n n
+     info←'⍝ ',((-≢'.dcf')↓(≢n.∆Form.##.n.∆Form.∆Path)↓n.∆Form.∆Filename),'; from Git'
+ :Else
+     body←6⊃n GetComponent row
+     info←'⍝ ',((≢n.∆Form.##.n.∆Form.∆Path)↓n.∆Form.∆Filename),'; version no. ',⍕row
+ :EndIf
+ body←(⊂info),body
+ name←2⊃⎕NPARTS 2⊃⎕NPARTS n.∆Form.∆Filename
+ ref←⎕NS''
+ {}⍎'ref.',name,'←body'
+ {}ref.⎕ED⍠('ReadOnly' 1)('EditName' 'Disallow')⊣name
+ ⍝Done

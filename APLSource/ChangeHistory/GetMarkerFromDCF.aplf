@@ -1,0 +1,4 @@
+ GetMarkerFromDCF←{
+     (tno noOf gitFlag)←⍵
+     3⊃¨{⎕FREAD tno ⍵}¨⍳noOf-gitFlag
+ }

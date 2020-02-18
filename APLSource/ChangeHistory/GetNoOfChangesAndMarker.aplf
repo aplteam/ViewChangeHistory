@@ -1,0 +1,8 @@
+ GetNoOfChangesAndMarker←{
+     filename←⍵
+     tno←filename ⎕FSTIE 0
+     noOf←-/⌽2↑⎕FSIZE tno
+     buff←{⎕FREAD tno ⍵}¨⍳noOf
+     _←⎕FUNTIE tno
+     noOf(3⊃¨buff)
+ }

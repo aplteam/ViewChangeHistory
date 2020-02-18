@@ -1,0 +1,7 @@
+ r←GetTestFlag
+ :If 0<⎕NC'TEST_FLAG'
+     r←TEST_FLAG
+ :Else
+     r←0
+ :EndIf
+⍝Done

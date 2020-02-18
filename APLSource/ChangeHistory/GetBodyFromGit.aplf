@@ -1,0 +1,22 @@
+ body←{n2}GetBodyFromGit n;n;commits;wsPath;filename;hash;projectFolder;qdmx
+ body←''
+ n2←n{0<⎕NC ⍵:⍎⍵ ⋄ ⍺}'n2'
+ commits←n.∆Form.∆AcreProject ##.APLGit.Commits''
+ wsPath←(GetListIndex n)⊃n.List.Items
+ wsPath←⊃,/¯1↓⎕NPARTS wsPath    ⍝ Drop extension
+ wsPath←{w←⍵ ⋄ ((w∊'/\')/w)←'.' ⋄ w}wsPath
+ wsPath←n.∆Form.∆AcreProject,'.',wsPath
+ filename←⊃⎕SE.acre.Sourcefile wsPath
+ hash←⊃commits.Hash
+ projectFolder←GetChangeHistoryFolder{(-1+≢⍺)↓⍵}n.∆Form.∆Path
+ :Trap 11
+     body←projectFolder ##.APLGit.GetRevision filename hash
+ :Else
+     qdmx←⎕DMX
+     :If ∨/'fatal: Not a valid object name'⍷∊qdmx.DM
+         n2 TellGitDoesNotKnow wsPath
+         :Return
+     :Else
+         'Something went wrong; see "qdmx"'Assert 0
+     :EndIf
+ :EndTrap

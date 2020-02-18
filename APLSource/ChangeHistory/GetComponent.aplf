@@ -1,7 +1,7 @@
  GetComponent←{
      n←⍺
-     ind←⍵
+     compNo←⍵
      gf←n.∆Form.∆GitFlag
      tno←n.∆Form.∆Tno
-     ⎕FREAD tno(ind-gf)
+     ⎕FREAD tno(compNo-gf)
  }

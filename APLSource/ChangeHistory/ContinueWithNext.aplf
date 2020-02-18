@@ -1,0 +1,7 @@
+ r←n ContinueWithNext(i noOf);parms
+⍝ Returns 1 in case there is still something to process and the user has confirmed she wants to.
+ r←1
+ :If noOf>i+1
+     r←n.∆globalParms G.Dialogs.YesOrNo'Would you like to continue with no. ',(⍕i+1),' of ',(⍕noOf),' ?'
+ :EndIf
+⍝Done

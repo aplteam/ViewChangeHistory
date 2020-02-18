@@ -1,0 +1,13 @@
+ R←Test_Misc_002(stopFlag batchFlag);⎕IO;⎕ML;⎕TRAP
+⍝ Exercise the `CopyOnAfterSaveToQSE` function.
+ ⎕IO←0 ⋄ ⎕ML←3
+ ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
+
+ R←T._Failed
+
+ ⎕SE.⎕EX'OnAfterSave'
+ ##.ChangeHistory.CopyOnAfterSaveToQSE
+ →T.PassesIf 3=⎕NC'⎕SE.OnAfterSave'
+
+ R←T._OK
+⍝Done

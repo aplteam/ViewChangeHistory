@@ -1,8 +1,0 @@
- {r}←TellMaxOne n;parms
- r←⍬
- parms←##.APLGUI.Dialogs.CreateParmsForShowMsg
- parms.caption←'Change history: warning'
- parms.cancelButton←0
- parms.centerIn←n.∆Form
- {}parms ##.APLGUI.Dialogs.ShowMsg'Please select exactly one object'
-⍝Done

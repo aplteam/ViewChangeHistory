@@ -1,0 +1,11 @@
+ {r}←ProcessObjects n;ind;i;itemNo
+ r←⍬
+ ind←A.Where n.List.SelItems
+ :For i :In ⍳≢ind
+     itemNo←i⊃ind
+     r,←n ProcessObjects_ itemNo
+     :If ~n ContinueWithNext i(≢ind)
+         :Leave
+     :EndIf
+ :EndFor
+⍝Done

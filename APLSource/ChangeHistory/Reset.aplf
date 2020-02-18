@@ -1,0 +1,7 @@
+ Reset
+⍝ To be called after having run the test cases
+ ⎕EX'TEST_FLAG'
+ ⎕EX'TEST_DIR'
+ ⎕EX'TEST_GIT_FLAG'
+ ⎕EX'TEST_NO_BEYOND'
+⍝Done

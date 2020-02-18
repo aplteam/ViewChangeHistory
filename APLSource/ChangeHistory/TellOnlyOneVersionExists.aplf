@@ -1,0 +1,8 @@
+ {r}←TellOnlyOneVersionExists n;parms;msg
+ r←⍬
+ parms←##.APLGUI.Dialogs.CreateParmsForShowMsg
+ parms.addToCaption←'Warning'
+ parms.cancelButton←0
+ msg←'Only one version does exist for this object'
+ {}n.∆globalParms parms ##.APLGUI.Dialogs.ShowMsg msg
+⍝Done

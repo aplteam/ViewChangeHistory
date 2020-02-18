@@ -1,0 +1,6 @@
+ OnKeyPressInFilter←{
+     key←3⊃⍵
+     'DS'≡key:0⊣⎕NQ n.List'GotFocus'
+     'DK'≡key:ClearFilter GetRef2n 1⊃,⍵
+     1⊣⎕NQ(1⊃,⍵)9999
+ }

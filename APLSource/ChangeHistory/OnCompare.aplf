@@ -1,17 +1,40 @@
- OnCompare←{
-     n←GetRef2n 1⊃,⍵
-     ind←(↓⍉n.Grid.Values[;1 2])⍳¨1
-     =/ind:TellSelfCompare n
+ OnCompare msg;n;ind;filename;tno;buff1;buff2;date1;date2;body2;body1;tf1;tf2;commits;wsPath;hash;projectFolder;qdmx
+ n←GetRef2n 1⊃,msg
+ ind←(↓⍉n.Grid.Values[;1 2])⍳¨1
+ :If =/ind
+     TellSelfCompare n
+ :Else
      filename←n.∆Form.∆Filename
      tno←n.∆Form.∆Tno
-     (buff1 buff2)←n GetComponent¨ind
-     (date1 date2)←2⊃¨buff1 buff2
-     (body1 body2)←6⊃¨buff1 buff2
-     tf1←'txt'##.FilesAndDirs.GetTempFilename2''
-     tf2←'txt'##.FilesAndDirs.GetTempFilename2''
-     _←A.WriteUtf8File tf1 body1
-     _←A.WriteUtf8File tf2 body2
-     ⍝ name←¯4↓'change_history'{⍵↓⍨(≢⍺)+1⍳⍨⍺⍷⍵}n.∆Form.∆Filename
-     _←BeyondCompare tf1 tf2 date1 date2
-     ##.FilesAndDirs.DeleteFile tf1 tf2
- }
+     :If n.∆Form.∆GitFlag
+     :AndIf 1=ind[1]
+         body1←n GetBodyFromGit GetParent_n n
+         date1←'Git version'
+     :Else
+         buff1←{n GetComponent ⍵}ind[1]
+         date1←2⊃buff1
+         body1←6⊃buff1
+     :EndIf
+     buff2←n GetComponent ind[2]
+     (date2 body2)←buff2[2 6]
+     :If body1≡body2
+         wsPath←(1+≢1 ##.FilesAndDirs.NormalizePath GetChangeHistoryFolder)↓¯4↓n.∆Form.∆Filename
+         n TellTheyMatch wsPath
+     :Else
+         :If 0=⎕NC'TEST_NO_BEYOND'
+         :OrIf TEST_NO_BEYOND=0
+             tf1←'txt'##.FilesAndDirs.GetTempFilename2''
+             tf2←'txt'##.FilesAndDirs.GetTempFilename2''
+             A.WriteUtf8File tf1 body1
+             A.WriteUtf8File tf2 body2
+             :If 0=n BeyondCompare tf1 tf2 date1 date2
+                 TellNoBeyondCompare n
+                 ⎕ED↑'body1' 'body2'
+             :EndIf
+             ##.FilesAndDirs.DeleteFile tf1 tf2
+         :Else
+             ⎕ED↑'body1' 'body2'
+         :EndIf
+     :EndIf
+ :EndIf
+⍝Done

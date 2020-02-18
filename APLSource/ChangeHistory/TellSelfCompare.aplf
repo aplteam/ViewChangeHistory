@@ -1,7 +1,4 @@
  {r}←TellSelfCompare n;parms
  r←⍬
- parms←G.Dialogs.CreateParmsForShowMsg
- parms.caption←'Change history'
- parms.centerIn←n.∆Form
- parms G.Dialogs.ShowMsg'Comparing a component with itself does not make too much sense...'
+ n.∆globalParms G.Dialogs.ShowMsg'Comparing a component with itself does not make too much sense...'
 ⍝Done

@@ -1,0 +1,3 @@
+ r←A
+⍝ To make it work with test cases. Normally A is a local ref created in `Run`
+ r←##.APLTreeUtils

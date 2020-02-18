@@ -1,5 +1,24 @@
  n←CreateMenuBarInMainForm n;ref
  ref←n.∆Form.⎕NEW⊂'Menubar'
- n.MenuFile←ref.⎕NEW'Menu'(⊂'Caption' 'File')
- n.Quit←n.MenuFile.⎕NEW'MenuItem'(('Caption' 'Quit')('Event'('Select' 1)))
+ n.∆Menu←⎕NS''
+
+ n.∆Menu.MenuFile←ref.⎕NEW'Menu'(⊂'Caption' 'File')
+
+ n.∆Menu.Quit←n.∆Menu.MenuFile.⎕NEW'MenuItem'(('Caption' 'Quit')('Event'('Select' 1)))
+
+ n.∆Menu.MenuProcess←ref.⎕NEW'Menu'(⊂'Caption' 'Edit')
+
+ n.∆Menu.Edit←n.∆Menu.MenuProcess.⎕NEW'MenuItem'(⊂('Caption'('Edit...',TAB,'Ctrl+Enter')))
+ n.∆Menu.Edit.onSelect←'OnEditInMainList'
+
+ n.∆Menu.Process←n.∆Menu.MenuProcess.⎕NEW'MenuItem'(('Caption'('Process selection...',TAB,'F12'))('Accelerator'(123 0)))
+ n.∆Menu.Process.onSelect←'OnProcessObjects'
+
+ n.∆Menu.MenuHelp←ref.⎕NEW'Menu'(⊂'Caption' 'Help')
+
+ n.∆Menu.Help←n.∆Menu.MenuHelp.⎕NEW'MenuItem'(('Caption'('Show Help',TAB,'F1'))('Accelerator'(112 0)))
+ n.∆Menu.Help.onSelect←'OnHelp'
+
+ n.∆Menu.About←n.∆Menu.MenuHelp.⎕NEW'MenuItem'(⊂('Caption' 'About...'))
+ n.∆Menu.About.onSelect←'OnAbout'
 ⍝Done

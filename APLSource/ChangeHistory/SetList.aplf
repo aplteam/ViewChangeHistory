@@ -1,0 +1,9 @@
+ {r}←{resetSelItems}SetList n
+ r←⍬
+ resetSelItems←{0<⎕NC ⍵:⍎⍵ ⋄ 0}'resetSelItems'
+ n.List.Items←n.List.∆Bool/n.List.∆Data[;1]
+ n.List.ReportInfo←¯1↓[2]1↓[2]n.List.∆Bool⌿n.List.∆Data
+ :If resetSelItems
+     n.List.SelItems←1↑⍨≢n.List.Items
+ :EndIf
+⍝Done

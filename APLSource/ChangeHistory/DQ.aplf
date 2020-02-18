@@ -1,3 +1,11 @@
- {r}←GetsFocus DQ ref
- ⎕NQ GetsFocus'GotFocus' ⋄ r←⎕DQ ref
+ {r}←{GetsFocus}DQ ref
+ r←⍬
+ :If 0=⎕NC'TEST_FLAG'
+ :OrIf 0=TEST_FLAG
+     :If 0<⎕NC'GetsFocus'
+         ⎕NQ GetsFocus'GotFocus' ⋄ r←⎕DQ ref
+     :Else
+         r←⎕DQ ref
+     :EndIf
+ :EndIf
 ⍝Done

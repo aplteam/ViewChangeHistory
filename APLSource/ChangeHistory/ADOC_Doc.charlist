@@ -1,0 +1,84 @@
+# The `ChangeHistory` user command
+
+⍝⍝ ## The GUI
+
+⍝⍝ ### Main GUI
+
+⍝⍝ After executing the `]ChangeHistory` user command you get this main GUI:
+
+⍝⍝ ![](MainGui.png "ChangeHistory's main GUI")
+
+⍝⍝ Along the version that was committed to Git all changes made thereafter are available for comparison.
+
+⍝⍝ ### The "Process" GUI
+
+⍝⍝ You can then either process a single file via its context menu of select several rows and then select the "Process..." 
+⍝⍝ command from the "Edit" menu.
+
+⍝⍝ That results in this window:
+
+⍝⍝ ![](ProcessGui.png "The ''Process'' GUI")
+
+⍝⍝You can compare the two versions marked with active radio buttons. For that it is recommended that you have installed 
+⍝⍝ BeyondCompare on your computer.
+                               
+⍝⍝ `]ChangeHistory` relies on all changes being written to component files; for each APL object a separate DCF is created. 
+⍝⍝ The "Process" option lists all changes but also the latest committed version to Git.
+
+
+## Tell acre
+
+You need to make sure that acre calls the function `OnAfterSave` (which belongs to `ChangeHistory`) so that every single
+change will be written to the `change_history/` folder in the correct project folder.
+
+This can be achieved in a number of ways.
+
+### Temporarily
+
+For that it's enough to call 
+
+```
+      ]ChangeHistory -install
+```
+
+This will establish a function `OnAfterSave` in `⎕SE` where acre can find and execute it.
+
+Naturally when you `)OFF` that instance of Dyalog it's gone.
+
+### Permanently
+
+After establishing `OnAfterSave` in `⎕SE` you could save the DSE (read: the session file). That makes it permanent, but
+only for that version of APL.
+
+Alternatively you could create a script file `setup.dyalog` within `%USERPROFILE%/Documents/MyUCMDs` and have a `Run`
+function in that script that in turn somehow brings the code of the `OnAfterSave` function into `⎕SE`. This `Run` function
+would be automatically executed whenever an instance of Dyalog is started. 
+
+This would make it permanent for all versions of Dyalog. At the time of writing this would be true for 16.0, 17.0 and
+17.1.
+
+You also have to make sure that acre actually calls `OnAfterSave` after it having saved any change. 
+
+In order to achieve that execute `]acre.AfterSave ⎕SE.OnAfterSave`. This will make sure that the function `⎕SE.OnAfterSave` will be 
+executed in all your acre projects. However, once you `)OFF` that's vanished.
+
+If you want `OnAfterSave` only be executed within particular projects you should modify the file `acre.config`. See the acre
+documentation for details.
+
+If you prefer to activate `ChangeHistory`in all your acre projects _permanently_ then you need to create a script file 
+`setup.dyalog` within `%USERPROFILE%/Documents/MyUCMDs` and have a `Run` function that performs the necessary actions.
+
+
+### Discarding the history
+
+All the pieces of information written to the component files become obsolete once you perform the next "Commit". It is 
+therefore recommended that you discard the directory `change_history/` (which contains nothing but those component files), 
+straight after the Commit. 
+
+It is also recommended that you do this under program control.
+
+However, you can also discard the `change_history/` folder by calling the user command with the `-discard` option:
+
+```
+     ]ChangeHistory -discard
+```

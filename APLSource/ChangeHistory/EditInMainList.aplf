@@ -1,0 +1,14 @@
+ EditInMainList←{
+     n←⍵
+     ⍺←A.Where n.List.SelItems
+     ind←⍺
+     0=+/n.List.∆Bool:0
+     names←(n.List.∆Bool⌿n.List.∆Data)[ind;6]
+     0∨.=b←⎕NC names:n TellDoesNotExist(0=b)/names
+     body←⎕NR¨names
+     _←⎕ED names
+     flag←body≢¨⎕NR¨names
+     msg←{(1+⍵)⊃'Browsed' 'Changed'}¨flag
+     n.List.ReportInfo[ind;4]←msg
+     1:shy←0
+ }
