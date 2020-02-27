@@ -2,8 +2,8 @@
  r←⍬
  filename←n.∆Form.∆Path,(ind⊃n.List.Items),'.dcf'
  noOf←A.ToNum 2⊃n.List.ReportInfo[ind;]
- :If noOf=1+IsGitManaged
-     TellOnlyOneVersionExists n
+ :If noOf=1
+     ind TellOnlyOneVersionExists n
  :Else
      r←n Process filename noOf
  :EndIf

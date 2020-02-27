@@ -31,9 +31,10 @@
 You need to make sure that acre calls the function `OnAfterSave` (which belongs to `ChangeHistory`) so that every single
 change will be written to the `change_history/` folder in the correct project folder.
 
+In a first step you need to make sure that ChangeHistory's function `OnAfterSave` is available for acre to be executed.
 This can be achieved in a number of ways.
 
-### Temporarily
+### Establish `OnAfterSave` temporarily
 
 For that it's enough to call 
 
@@ -45,28 +46,31 @@ This will establish a function `OnAfterSave` in `⎕SE` where acre can find and 
 
 Naturally when you `)OFF` that instance of Dyalog it's gone.
 
-### Permanently
+### ### Establish `OnAfterSave` permanently
 
 After establishing `OnAfterSave` in `⎕SE` you could save the DSE (read: the session file). That makes it permanent, but
 only for that version of APL.
 
-Alternatively you could create a script file `setup.dyalog` within `%USERPROFILE%/Documents/MyUCMDs` and have a `Run`
-function in that script that in turn somehow brings the code of the `OnAfterSave` function into `⎕SE`. This `Run` function
+Alternatively you could create a script file `setup.dyalog` within `%USERPROFILE%/Documents/MyUCMDs` and have a function
+`Setup` in that script that in turn somehow brings the code of the `OnAfterSave` function into `⎕SE`. This `Setup` function
 would be automatically executed whenever an instance of Dyalog is started. 
 
 This would make it permanent for all versions of Dyalog. At the time of writing this would be true for 16.0, 17.0 and
 17.1.
 
+### Inform acre
+
 You also have to make sure that acre actually calls `OnAfterSave` after it having saved any change. 
 
 In order to achieve that execute `]acre.AfterSave ⎕SE.OnAfterSave`. This will make sure that the function `⎕SE.OnAfterSave` will be 
-executed in all your acre projects. However, once you `)OFF` that's vanished.
+executed in all your acre projects. However, once you `)OFF` that setting vanishes.
 
 If you want `OnAfterSave` only be executed within particular projects you should modify the file `acre.config`. See the acre
 documentation for details.
 
-If you prefer to activate `ChangeHistory`in all your acre projects _permanently_ then you need to create a script file 
-`setup.dyalog` within `%USERPROFILE%/Documents/MyUCMDs` and have a `Run` function that performs the necessary actions.
+If you prefer to activate `ChangeHistory` in _all_ your acre projects _permanently_ then you need to create a script file 
+`setup.dyalog` within `%USERPROFILE%/Documents/MyUCMDs` and have a `Setup` function that performs the necessary action: execute 
+acre's API function for specifying a OnAfterSave function: `⎕SE.acre._code.AfterSave '⎕se.OnAfterSave'`.
 
 
 ### Discarding the history
@@ -82,3 +86,4 @@ However, you can also discard the `change_history/` folder by calling the user c
 ```
      ]ChangeHistory -discard
 ```
+

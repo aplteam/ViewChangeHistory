@@ -5,6 +5,7 @@
  wsPath←(GetListIndex n)⊃n.List.Items
  wsPath←⊃,/¯1↓⎕NPARTS wsPath    ⍝ Drop extension
  wsPath←{w←⍵ ⋄ ((w∊'/\')/w)←'.' ⋄ w}wsPath
+ wsPath←1↓⊃,/'.',¨{⍵↑⍨¯1+⍵⍳'-'}¨'.'A.Split wsPath  ⍝ filenames might carry CaseCode information
  wsPath←n.∆Form.∆AcreProject,'.',wsPath
  filename←⊃⎕SE.acre.Sourcefile wsPath
  hash←⊃commits.Hash
