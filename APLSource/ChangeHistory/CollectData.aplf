@@ -5,5 +5,5 @@
  aplNames←project∘GetAplNameFrom¨r[;1]
  r,←'NY'[1+0<⎕NC↑aplNames]
  r,←⊂''                                         ⍝ Notifies any actions, like deletions
- r,←aplNames                                    ⍝ Not shown on the GUI
+ r,←RemoveCaseCode¨aplNames                     ⍝ Not shown on the GUI
 ⍝Done

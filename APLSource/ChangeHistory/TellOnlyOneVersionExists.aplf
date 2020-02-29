@@ -7,6 +7,7 @@
      :If n.∆globalParms parms ##.APLGUI.Dialogs.YesOrNo msg
          :If ⎕NEXISTS filename←n.∆Form.∆ProjectPath
              aplName←⊃n.List.∆Data[row;6]
+             aplName←RemoveCaseCode aplName
              filePath←⊃⎕SE.acre.Sourcefile aplName
              filename←⊃⊃##.FilesAndDirs.Dir n.∆Form.∆Path,('APLSource'{⍵↓⍨(≢⍺)+1⍳⍨⍺⍷⍵}filePath),'.dcf'
              tno←filename ⎕FSTIE 0
