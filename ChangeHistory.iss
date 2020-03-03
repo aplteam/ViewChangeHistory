@@ -1,6 +1,6 @@
 ; This script is best executed by ChangeHistory's "Make" utility.
 
-#define MyAppVersion "1.0.3.62"
+#define MyAppVersion "1.0.4.65"
 #define MyAppName "ChangeHistory"
 #define MyAppExeName "ChangeHistory.dws"
 #define MyAppPublisher "APL Team Ltd"
@@ -32,6 +32,7 @@ PrivilegesRequired=Lowest
 AlwaysShowDirOnReadyPage=yes
 DisableWelcomePage=no
 DisableDirPage=no
+CreateUninstallRegKey=no
 
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"; LicenseFile: "License";

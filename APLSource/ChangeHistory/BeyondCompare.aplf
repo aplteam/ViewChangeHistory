@@ -1,5 +1,5 @@
  {r}←n BeyondCompare(file1 file2 caption1 caption2);cmd;rc;more;beyondCompareFilename
-⍝ Runs BeyondCompare on the two files specified.
+⍝ Runs BeyondCompare on the two files specified.\\
 ⍝ Returns 0 in case BeyondCompare was not found and 1 otherwise.
  r←0
  cmd←''
