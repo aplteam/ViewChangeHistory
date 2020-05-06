@@ -1,5 +1,5 @@
-﻿:Class  ChangeHistory
-⍝ User Command script for "ChangeHistory"
+﻿:Class  ViewChangeHistory
+⍝ User Command script for "]ViewChangeHistory"
 
     MinimumVersionOfDyalogNeeded←'16.0'   ⍝ No need to edit this: it's checked by ]runmake, and changed if necessary
 
@@ -7,7 +7,7 @@
       :Access Shared Public
       ⎕IO←⎕ML←1
       r←⎕NS''                               ⍝ create the command
-      r.Name←'ChangeHistory'                ⍝ the name
+      r.Name←'ViewChangeHistory'            ⍝ the name
       r.Desc←'Saves all changes between commits'
       r.Group←'acre'
      ⍝ Parsing rules:
@@ -19,23 +19,23 @@
       ⎕IO←0 ⋄ ⎕ML←3 ⋄ ⎕WX←3
       thisVersion←⊃(//)⎕VFI{⍵/⍨2>+\'.'=⍵}1⊃'#'⎕WG'APLVersion'
       :If (⊃(//)⎕VFI MinimumVersionOfDyalogNeeded)>⊃(//)⎕VFI{⍵/⍨2>+\'.'=⍵}1⊃'#'⎕WG'APLVersion'
-          11 ⎕SIGNAL⍨'ChangeHistory needs at least version ',MinimumVersionOfDyalogNeeded,' of Dyalog APL'
+          11 ⎕SIGNAL⍨'ViewChangeHistory needs at least version ',MinimumVersionOfDyalogNeeded,' of Dyalog APL'
       :EndIf
       r←0 0⍴''
       discard←0 Args.Switch'discard'              ⍝ default is 0
       install←0 Args.Switch'install'              ⍝ default is 0
-      '_ChangeHistory'⎕SE.⎕NS''
-      EstablishNeededModules ⎕SE._ChangeHistory
-      CopyCode ⎕SE._ChangeHistory
+      '_ViewChangeHistory'⎕SE.⎕NS''
+      EstablishNeededModules ⎕SE._ViewChangeHistory
+      CopyCode ⎕SE._ViewChangeHistory
       :If discard
-          n←⎕SE._ChangeHistory.ChangeHistory.Discard 1
+          n←⎕SE._ViewChangeHistory.ViewChangeHistory.Discard 1
       :ElseIf install
-          buff←⎕CR'⎕se._ChangeHistory.ChangeHistory.OnAfterSave'
+          buff←⎕CR'⎕se._ViewChangeHistory.ViewChangeHistory.OnAfterSave'
           :If 0=1↑0⍴buff←⎕SE.⎕FX buff
               11 ⎕SIGNAL⍨'Fixing "OnAfterSave" failed; check line number',((1<≢buff)/'s'),': ',⍕buff-1
           :EndIf
       :Else
-          n←((0⊃⎕NPARTS ##.SourceFile),'\ChangeHistory\')⎕SE._ChangeHistory.ChangeHistory.Run ⍬
+          n←((0⊃⎕NPARTS ##.SourceFile),'ViewChangeHistory\')⎕SE._ViewChangeHistory.ViewChangeHistory.Run ⍬
       :EndIf
     ∇
 
@@ -49,7 +49,7 @@
 
     ∇ {r}←CopyCode ref;wsNamePath
       wsNamePath←GetWorkspacePath
-      'ChangeHistory'ref.⎕CY wsNamePath
+      'ViewChangeHistory'ref.⎕CY wsNamePath
       r←⍬
     ∇
 
@@ -57,9 +57,9 @@
       :If 0=##.⎕NC'SourceFile'
           ⍝ We are probably executed as part of a help call, and then ##.SourceFile is not available
           ⍝ ↓↓↓ This is a hack to get around this:
-          r←(2 ⎕NQ #'GetEnvironment' 'USERPROFILE'),'/Documents/MyUCMDs/ChangeHistory/ChangeHistory.dws'
+          r←(2 ⎕NQ #'GetEnvironment' 'USERPROFILE'),'/Documents/MyUCMDs/ViewChangeHistory/ViewChangeHistory.dws'
       :Else
-          r←(0⊃⎕NPARTS ##.SourceFile),'\ChangeHistory\ChangeHistory.dws'
+          r←(0⊃⎕NPARTS ##.SourceFile),'\ViewChangeHistory\ViewChangeHistory.dws'
       :EndIf
     ∇
 
@@ -75,7 +75,7 @@
           r,←⊂'Without an argument it attempts to deal with one or more open acre projects.'
       :Case 1
           r,←⊂'While the user command:'
-          r,←⊂']ChangeHistory'
+          r,←⊂']ViewChangeHistory'
           r,←⊂'fires up a GUI that allows you to manage any files in the folder change_history/,'
           r,←⊂'you can add the -discard flag in order to remove the folder and its content.'
           r,←⊂''
@@ -87,7 +87,7 @@
           ref←⍎'TEMP'⎕SE.⎕NS''
           EstablishNeededModules ref
           CopyCode ref
-          {}⎕SE.UCMD'ADOC ⎕SE.TEMP.ChangeHistory -ref=0 -toc=0'
+          {}⎕SE.UCMD'ADOC ⎕SE.TEMP.ViewChangeHistory -ref=0 -toc=0'
       :EndSelect
     ∇
 
@@ -97,9 +97,9 @@
           :If 0=##.⎕NC'SourceFile'
               ⍝ We are probably executed as part of a help call, and then ##.SourceFile is not available
               ⍝ ↓↓↓ This is a hack to get around this:
-              wsNamePath←(2 ⎕NQ #'GetEnvironment' 'USERPROFILE'),'/Documents/MyUCMDs/ChangeHistory/ChangeHistory.dws'
+              wsNamePath←(2 ⎕NQ #'GetEnvironment' 'USERPROFILE'),'/Documents/MyUCMDs/ViewChangeHistory/ViewChangeHistory.dws'
           :Else
-              wsNamePath←(0⊃⎕NPARTS ##.SourceFile),'\ChangeHistory\ChangeHistory.dws'
+              wsNamePath←(0⊃⎕NPARTS ##.SourceFile),'\ViewChangeHistory\ViewChangeHistory.dws'
           :EndIf
           :If ⎕NEXISTS wsNamePath
               :Trap 11
@@ -115,7 +115,7 @@
                           msg,←⊂'Module <',object,'> not found in ',wsNamePath
                       :EndTrap
                   :EndFor
-                  (1↓↑,/(⎕UCS 13),¨(⊂'*** Problem collecting modules required by ChangeHistory:'),'  '∘,¨msg)⎕SIGNAL 6/⍨0≠≢msg
+                  (1↓↑,/(⎕UCS 13),¨(⊂'*** Problem collecting modules required by ViewChangeHistory:'),'  '∘,¨msg)⎕SIGNAL 6/⍨0≠≢msg
               :EndTrap
           :Else
               6 ⎕SIGNAL⍨'Could not find ',wsNamePath

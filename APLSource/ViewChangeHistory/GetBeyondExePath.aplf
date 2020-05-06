@@ -3,7 +3,7 @@
  :If ##.WinRegSimple.Exists rk
      r←##.WinRegSimple.Read rk
  :Else
-     r←'"C:\Program Files\Beyond Compare 4\BCompare___.exe"'
+     r←'"C:\Program Files\Beyond Compare 4\BComp.exe"'
  :EndIf
  :If ~##.FilesAndDirs.IsFile r
      parms←G.FileBox.CreateParms

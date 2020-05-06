@@ -1,11 +1,11 @@
-; This script is best executed by ChangeHistory's "Make" utility.
+; This script is best executed by ViewChangeHistory's "Make" utility.
 
-#define MyAppVersion "1.0.5.67"
-#define MyAppName "ChangeHistory"
-#define MyAppExeName "ChangeHistory.dws"
+#define MyAppVersion "1.1.0.75"
+#define MyAppName "ViewChangeHistory"
+#define MyAppExeName "ViewChangeHistory.dws"
 #define MyAppPublisher "APL Team Ltd"
-#define MyAppURL "https://github.com/aplteam/ChangeHistory"
-#define MyAppIcoName "ChangeHistory.ico"
+#define MyAppURL "https://github.com/aplteam/ViewChangeHistory"
+#define MyAppIcoName "ViewChangeHistory.ico"
 #define MyBlank " "
 #define TargetDir "Dist\"
 
@@ -42,12 +42,12 @@ Name: "english"; MessagesFile: "compiler:Default.isl"; LicenseFile: "License";
 [Dirs]
 
 [Files]
-Source: "{#TargetDir}\ChangeHistory_uc.dyalog"; DestDir: "{app}\..\";
-Source: "{#TargetDir}\ChangeHistory\ReleaseNotes.html"; DestDir: "{app}";
-Source: "{#TargetDir}\ChangeHistory\ReadMe.html"; DestDir: "{app}";
-Source: "{#TargetDir}\ChangeHistory\{#MyAppExeName}"; DestDir: "{app}";
-Source: "{#TargetDir}\ChangeHistory\MainGUI.png"; DestDir: "{app}";
-Source: "{#TargetDir}\ChangeHistory\ProcessGUI.png"; DestDir: "{app}";
+Source: "{#TargetDir}\ViewChangeHistory_uc.dyalog"; DestDir: "{app}\..\";
+Source: "{#TargetDir}\ViewChangeHistory\ReleaseNotes.html"; DestDir: "{app}";
+Source: "{#TargetDir}\ViewChangeHistory\ReadMe.html"; DestDir: "{app}";
+Source: "{#TargetDir}\ViewChangeHistory\{#MyAppExeName}"; DestDir: "{app}";
+Source: "{#TargetDir}\ViewChangeHistory\MainGUI.png"; DestDir: "{app}";
+Source: "{#TargetDir}\ViewChangeHistory\ProcessGUI.png"; DestDir: "{app}";
 Source: {#MyAppIcoName}; DestDir: "{app}";
 
 Source: "LICENSE"; DestDir: "{app}"

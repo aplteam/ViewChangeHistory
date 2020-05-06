@@ -1,4 +1,5 @@
-* 1.0.5 ⋄ 2020-05-06
+* 1.1.0 ⋄ 2020-05-06
+  * Project as well as user command renamed from `ChangeHistory` to `ViewChangeHistory`.
   * Bug fixes:
     * The main window can now be closed by pressing the <escape> key.
     * There was a problem with sorting by column in the main window.

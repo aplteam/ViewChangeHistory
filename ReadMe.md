@@ -1,4 +1,4 @@
-# ChangeHistory
+# ViewChangeHistory
 
 ## Overview
 
@@ -10,13 +10,13 @@ Any changes in between, including anything created after the last commit but del
 
 Usually that is fine. But occasionally you might find that having access to the changes in between would actually be useful. Wouldn't it be nice if a system would record all your changes silently in the background, only to be discarded as soon as you commit changes to your VCS only to start from scratch? 
 
-That is exactly what the `]ChangeHistory` user command is designed to do.
+That is exactly what the `]ViewChangeHistory` user command is designed to do.
 
 ## The GUI
 
 The main GUI:
 
-![](MainGUI.png?raw=true "ChangeHistory's main GUI")
+![](MainGUI.png?raw=true "ViewChangeHistory's main GUI")
 
 
 
@@ -27,11 +27,11 @@ The sub-GUI for processing a single APL object:
 ![](ProcessGUI.png?raw=true "The ''Process'' GUI")
 
 
-## Installing `]ChangeHistory`
+## Installing `]ViewChangeHistory`
 
 Installing the user command is simple: just double-click the installer and answer the questions. This will copy:
 
-* the user command script `ChangeHistory_UC.dyalog` 
+* the user command script `ViewChangeHistory_UC.dyalog` 
 * the folder `ChangeHistory/` 
 
 into `%USERPROFILE%/Documents/MyUCMDs` where **all** versions of Dyalog APL will find it.
@@ -39,13 +39,13 @@ into `%USERPROFILE%/Documents/MyUCMDs` where **all** versions of Dyalog APL will
 To make it really work there are more steps to be carried out. For further instructions execute within Dyalog:
 
 ```
-      ]ChangeHistory -???
+      ]ViewChangeHistory -???
 ```
 
 In earlier versions than 17.0:
 
 ```
-      ]???ChangeHistory       
+      ]???ViewChangeHistory       
 ```
 
 ## Requirements
