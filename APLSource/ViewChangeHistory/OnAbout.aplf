@@ -1,7 +1,7 @@
  OnAbout←{
      n←GetRef2n 1⊃,⍵
      msg←''
-     msg,←⊂'"ChangeHistory" is an acre tool written by Kai Jaeger'
+     msg,←⊂'"ViewChangeHistory" is an acre tool written by Kai Jaeger'
      msg,←⊂''
      msg,←⊂'Icon made by Pixel perfect from www.flaticon.com'
      msg,←⊂''

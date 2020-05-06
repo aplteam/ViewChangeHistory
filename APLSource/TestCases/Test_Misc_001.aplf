@@ -5,15 +5,15 @@
 
  R←T._Failed
 
- n←##.ChangeHistory.Run''
- →T.GoToTidyUp~∨/'History of #.ChangeHistory --- uses folder'⍷n.∆Form.Caption
+ n←##.ViewChangeHistory.Run''
+ →T.GoToTidyUp~∨/'History of #.ViewChangeHistory --- uses folder'⍷n.∆Form.Caption
  →T.GoToTidyUp 0≥≢n.List.Items
 
  row←1⍳⍨1<⊃∘##.APLTreeUtils.ToNum¨n.List.ReportInfo[;2]
  n.List.SelItems[]←0
  n.List.SelItems[row]←1
- ##.ChangeHistory.SetFocusTo n.List row
- n2←⊃##.ChangeHistory.ProcessObjects n
+ ##.ViewChangeHistory.SetFocusTo n.List row
+ n2←⊃##.ViewChangeHistory.ProcessObjects n
  shape←⍴n2.Grid.Values
  expected←⊃(##.APLTreeUtils.ToNum⊃n.List.ReportInfo[row;2])
  →T.GoToTidyUp expected≢⊃shape

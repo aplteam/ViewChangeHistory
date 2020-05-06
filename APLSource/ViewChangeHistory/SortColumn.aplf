@@ -1,0 +1,28 @@
+ {r}←n SortColumn newCol;direction;col;newCol;ind;fns;i
+ r←⍬
+ (col direction)←⊃¯1↑n.List.∆Sort           ⍝ Last one was...
+ n.List.∆Bool←1
+ n.Filter.Text←''
+ n.List.ColTitles←(¯1↓¨n.List.ColTitles),¨' '
+ :If col=newCol
+     direction←~direction                   ⍝ Column is sorted again, so we have to swap the sort direction
+     n.List.ColTitles[newCol]←⊂(¯1↓newCol⊃n.List.ColTitles),'↓↑'[1+direction]
+     fns←⍎(1+direction)⊃'⍒⍋'
+     ind←fns ⎕FMT⍪n.List.∆Data[;newCol]
+     n.List.∆Sort,←⊂newCol direction
+ :ElseIf newCol∊⊃¨n.List.∆Sort
+     i←¯1↑A.Where(⊃¨n.List.∆Sort)=newCol
+     direction←(i,2)⊃n.List.∆Sort
+     n.List.ColTitles[newCol]←⊂(¯1↓newCol⊃n.List.ColTitles),'↓↑'[1+direction]
+     fns←⍎(1+direction)⊃'⍒⍋'
+     ind←fns ⎕FMT⍪n.List.∆Data[;newCol]
+     n.List.∆Sort,←⊂newCol direction
+ :Else
+     ind←⍋⎕FMT⍪n.List.∆Data[;newCol]
+     n.List.ColTitles[newCol]←⊂(¯1↓newCol⊃n.List.ColTitles),'↑'
+     n.List.∆Sort,←⊂newCol 1
+ :EndIf
+ n.List.Items←n.List.∆Data[ind;1]
+ n.List.ReportInfo←1↓[2]n.List.∆Data[ind;]
+ n.List.∆Sort←{⍵/⍨⌽{(⍵⍳⍵)=⍳≢⍵}⊃¨⌽⍵}n.List.∆Sort
+⍝Done

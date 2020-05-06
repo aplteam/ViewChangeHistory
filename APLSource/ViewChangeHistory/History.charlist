@@ -1,3 +1,8 @@
+* 1.0.5 ⋄ 2020-05-06
+  * Bug fixes:
+    * The main window can now be closed by pressing the <escape> key.
+    * There was a problem with sorting by column in the main window.
+    * Documentation improved.
 * 1.0.4 ⋄ 2020-03-03
   * Under some circumstances the "Edit" command on the context menu was inactive when it should not have been.
 * 1.0.3 ⋄ 2020-02-29

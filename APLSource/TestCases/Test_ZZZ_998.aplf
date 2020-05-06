@@ -3,7 +3,7 @@
  ⎕IO←0 ⋄ ⎕ML←3
  ⎕TRAP←(999 'C' '. ⍝ Deliberate error')(0 'N')
 
- ref←'#.ChangeHistory'
+ ref←'#.ViewChangeHistory'
 
  R←T._OK
  report←''

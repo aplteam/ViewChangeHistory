@@ -11,8 +11,8 @@
      parms.size←∆SizeTreeForm
  :EndIf
  globalParms←G.APLGuiGlobalParms.CreateDefaults
- globalParms.caption←'ChangeHistory'
- globalParms.icon←⎕NEW'Icon'(⊂'File'(∆HOME_PATH,'ChangeHistory.ico'))
+ globalParms.caption←'ViewChangeHistory'
+ globalParms.icon←⎕NEW'Icon'(⊂'File'(∆HOME_PATH,'ViewChangeHistory.ico'))
  n←G.StdForm.Create parms globalParms
  n.∆globalParms.centerIn←n.∆Form
  n.∆Form.onClose←'OnCloseTreeForm'
@@ -83,5 +83,5 @@
  n.List.onColumnClick←'OnColumnClickInList'
  n.List.onMouseDblClick←'OnMouseDblClickInList'
  n.List.onKeyPress←'OnKeyPressInList'
- n.List.∆Sort←1 1   ⍝ First is sort order (1=up, 0=down), second is column
+ n.List.∆Sort←⊂1 1   ⍝ First is column, second is sort order (1=up, 0=down). Saved for all columns visited, therefore enclosed
  ⍝Done

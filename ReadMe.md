@@ -1,11 +1,5 @@
 # ChangeHistory
 
-## Requirements
-
-1. You work under MS Windows.
-1. You use [acre](https://github.com/the-carlisle-group/Acre-Desktop "Link acre on GitHub"), a project management tool written by Phil Last and made available to the APL community by the [Carlisle Group](https://www.carlislegroup.com/).
-1. You use [Git](https://git-scm.com/) as your source code management system (SCM).
-
 ## Overview
 
 As a professional software developer you are using Git for managing your source code. Fine.
@@ -22,11 +16,15 @@ That is exactly what the `]ChangeHistory` user command is designed to do.
 
 The main GUI:
 
-![]MainGui.png "ChangeHistory's main GUI")
+![](MainGUI.png?raw=true "ChangeHistory's main GUI")
+
+
 
 The sub-GUI for processing a single APL object:
 
-![](ProcessGui.png "The ''Process'' GUI")
+
+
+![](ProcessGUI.png?raw=true "The ''Process'' GUI")
 
 
 ## Installing `]ChangeHistory`
@@ -50,3 +48,8 @@ In earlier versions than 17.0:
       ]???ChangeHistory       
 ```
 
+## Requirements
+
+1. You work under MS Windows.
+1. You use [acre](https://github.com/the-carlisle-group/Acre-Desktop "Link acre on GitHub"), a project management tool written by Phil Last and made available to the APL community by the [Carlisle Group](https://www.carlislegroup.com/).
+1. You use [Git](https://git-scm.com/) as your source code management system (SCM).

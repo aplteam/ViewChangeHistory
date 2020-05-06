@@ -10,7 +10,7 @@
  ##.APLTreeUtils.WriteUtf8File(folder,'hello.aplf')'Hello←{''World''}'
  →T.GoToTidyUp 1≠≢('recursive' 1)##.FilesAndDirs.Dir folder
 
- folder ##.ChangeHistory.Discard 0
+ folder ##.ViewChangeHistory.Discard 0
  →T.GoToTidyUp ##.FilesAndDirs.IsDir folder
 
  R←T._OK

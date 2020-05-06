@@ -6,7 +6,7 @@
  R←T._Failed
 
  ⎕SE.⎕EX'OnAfterSave'
- ##.ChangeHistory.CopyOnAfterSaveToQSE
+ ##.ViewChangeHistory.CopyOnAfterSaveToQSE
  →T.PassesIf 3=⎕NC'⎕SE.OnAfterSave'
 
  R←T._OK

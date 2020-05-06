@@ -1,5 +1,5 @@
  {r}←{homePath}Run project;tno;filename;G;A;path;nsPath;data;n;∆HOME_PATH
-⍝ All change files are presented in a GUI. If `name` is not empty we try to identify the object and
+⍝ All change files are presented in a GUI. If `project` is not empty we try to identify the object and
 ⍝ pre-select it. The user can then click the `Process` button in order to see a list of all components
 ⍝ saved for that particualar object. She can then compare any two of them.\\
 ⍝ If `project` is undefined or empty the default project rules. Otherwise `project` must be the fully
@@ -14,12 +14,12 @@
      :Trap 0
          ⎕SE.UCMD'acre.projects'
      :Else
-         ⎕←'acre is not available; ]ChangeHistory cannot continue'
+         ⎕←'acre is not available; ]ViewChangeHistory cannot continue'
          :Return
      :EndTrap
  :EndIf
  :If 0=⎕SE.⎕NC'acre'
-     ⎕←'acre is not available; ]ChangeHistory cannot continue'
+     ⎕←'acre is not available; ]ViewChangeHistory cannot continue'
      :Return
  :EndIf
  :If 0=≢project

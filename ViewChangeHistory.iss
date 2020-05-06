@@ -1,6 +1,6 @@
 ; This script is best executed by ChangeHistory's "Make" utility.
 
-#define MyAppVersion "1.0.4.65"
+#define MyAppVersion "1.0.5.67"
 #define MyAppName "ChangeHistory"
 #define MyAppExeName "ChangeHistory.dws"
 #define MyAppPublisher "APL Team Ltd"

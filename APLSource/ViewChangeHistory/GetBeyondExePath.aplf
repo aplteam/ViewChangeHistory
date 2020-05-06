@@ -1,5 +1,5 @@
  r←GetBeyondExePath n;rk;parms;buff
- rk←'HKCU\Software\APLTeam\ChangeHistory\BeyondCompareExePath'
+ rk←'HKCU\Software\APLTeam\ViewChangeHistory\BeyondCompareExePath'
  :If ##.WinRegSimple.Exists rk
      r←##.WinRegSimple.Read rk
  :Else
