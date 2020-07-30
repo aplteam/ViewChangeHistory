@@ -18,20 +18,20 @@
      buff2←n GetComponent ind[2]
      (date2 body2)←buff2[2 6]
      :If body1≡body2
-         wsPath←(1+≢1 ##.FilesAndDirs.NormalizePath GetChangeHistoryFolder)↓¯4↓n.∆Form.∆Filename
+         wsPath←(1+≢1 F.NormalizePath GetChangeHistoryFolder)↓¯4↓n.∆Form.∆Filename
          n TellTheyMatch wsPath
      :Else
          :If 0=⎕NC'TEST_NO_BEYOND'
          :OrIf TEST_NO_BEYOND=0
-             tf1←'txt'##.FilesAndDirs.GetTempFilename2''
-             tf2←'txt'##.FilesAndDirs.GetTempFilename2''
+             tf1←'txt'F.GetTempFilename2''
+             tf2←'txt'F.GetTempFilename2''
              A.WriteUtf8File tf1 body1
              A.WriteUtf8File tf2 body2
              :If 0=n BeyondCompare tf1 tf2 date1 date2
                  TellNoBeyondCompare n
                  ⎕ED↑'body1' 'body2'
              :EndIf
-             ##.FilesAndDirs.DeleteFile tf1 tf2
+             F.DeleteFile tf1 tf2
          :Else
              ⎕ED↑'body1' 'body2'
          :EndIf

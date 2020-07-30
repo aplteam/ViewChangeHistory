@@ -6,4 +6,5 @@
  r,←'NY'[1+0<⎕NC↑aplNames]
  r,←⊂''                                         ⍝ Notifies any actions, like deletions
  r,←RemoveCaseCode¨aplNames                     ⍝ Not shown on the GUI
+ r←r[⍒r[;2];]
 ⍝Done

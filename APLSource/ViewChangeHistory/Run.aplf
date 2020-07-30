@@ -1,4 +1,4 @@
- {r}←{homePath}Run project;tno;filename;G;A;path;nsPath;data;n;∆HOME_PATH
+ {r}←{homePath}Run project;tno;filename;G;A;path;nsPath;data;n;∆HOME_PATH;F
 ⍝ All change files are presented in a GUI. If `project` is not empty we try to identify the object and
 ⍝ pre-select it. The user can then click the `Process` button in order to see a list of all components
 ⍝ saved for that particualar object. She can then compare any two of them.\\
@@ -8,7 +8,7 @@
 ⍝ `r` is `⍬` unless TEST_FLAG exists and is 1, then it is a ref to the `n` namespace.
  r←⍬
  ∆HOME_PATH←{0<⎕NC ⍵:⍎⍵ ⋄ ''}'homePath'
- A←##.APLTreeUtils ⋄ G←##.APLGUI
+ A←##.APLTreeUtils ⋄ G←##.APLGUI ⋄ F←##.FilesAndDirs
  ##.APLGit.U.Init
  :If 0=⎕SE.⎕NC'acre'
      :Trap 0
@@ -25,7 +25,8 @@
  :If 0=≢project
      (project path)←2↑##.APLGit.EstablishProject''
  :EndIf
- :If ##.FilesAndDirs.IsDir path,GetChangeHistoryFolder,'/'
+ CheckGitIgnore path
+ :If F.IsDir path,GetChangeHistoryFolder,'/'
      n←SelectObject path project
      :If 0<⎕NC'TEST_FLAG'
      :AndIf 1=TEST_FLAG

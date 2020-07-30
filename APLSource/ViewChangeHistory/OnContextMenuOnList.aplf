@@ -15,7 +15,7 @@
      mm.Edit←mm.Menu.⎕NEW'MenuItem'(('Caption' 'Edit ')('Active'flag1))
      mm.Edit.onSelect←'OnEditInMainList'
      mm.sep1←mm.Menu.⎕NEW⊂'Separator'
-     flag2←##.FilesAndDirs.IsFile n.∆Form.∆Path,(⊃n.List.(SelItems/Items)),'.dcf'
+     flag2←F.IsFile n.∆Form.∆Path,(⊃n.List.(SelItems/Items)),'.dcf'
      mm.Delete←mm.Menu.⎕NEW'MenuItem'(('Caption' 'Delete file...')('Active'(flag2∧~flag1)))
      mm.Delete.onSelect←'OnDeleteInMainList'
      _←⎕DQ mm.Menu

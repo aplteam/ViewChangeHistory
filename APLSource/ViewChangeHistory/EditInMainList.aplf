@@ -3,7 +3,8 @@
      ⍺←A.Where n.List.SelItems
      ind←⍺
      0=+/n.List.∆Bool:0
-     names←(n.List.∆Bool⌿n.List.∆Data)[ind;6]
+     row←A.Where n.List.∆Data[;1]≡¨n.List.Items[ind]
+     names←(n.List.∆Bool⌿n.List.∆Data)[row;6]
      0∨.=b←⎕NC names:n TellDoesNotExist(0=b)/names
      body←⎕NR¨names
      _←⎕ED names

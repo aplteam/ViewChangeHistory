@@ -47,18 +47,24 @@
  ∆,←⊂'Caption' '&Match case'
  ∆,←⊂'Style' 'Check'
  ∆,←⊂'Attach'('Top' 'Right' 'Top' 'Right')
+ ∆,←⊂'TipObj'n.MyTipField
+ ∆,←⊂'Tip' 'Makes the "Filter" case sensitive'
  n.MatchCase←n.∆Form.⎕NEW'Button'∆
 
  ∆←''
  ∆,←⊂'Caption' 'Is &RegEx'
  ∆,←⊂'Style' 'Check'
  ∆,←⊂'Attach'('Top' 'Right' 'Top' 'Right')
+ ∆,←⊂'TipObj'n.MyTipField
+ ∆,←⊂'Tip' 'Treat the contents of "Filter" as a regular expression'
  n.IsRegEx←n.∆Form.⎕NEW'Button'∆
 
  ∆←''
  ∆,←⊂'Caption' '&Include path'
  ∆,←⊂'Style' 'Check'
  ∆,←⊂'Attach'('Top' 'Right' 'Top' 'Right')
+ ∆,←⊂'TipObj'n.MyTipField
+ ∆,←⊂'Tip' 'Only when ticked will the path be considered by the filter'
  n.IncludePath←n.∆Form.⎕NEW'Button'∆
 
  n.(MatchCase IsRegEx IncludePath).onSelect←⊂'OnFilterCheckBoxChange'
@@ -71,7 +77,7 @@
  ∆←''
  ∆,←⊂'View' 'Report'
  ∆,←⊂'Attach'('Top' 'Left' 'Bottom' 'Right')
- ∆,←⊂'ColTitles'('Path ↑' 'Last changed  ' 'Changes  ' 'WS  ' 'Actions  ')
+ ∆,←⊂'ColTitles'('Path  ' 'Last changed  ↓' 'Changes  ' 'WS  ' 'Actions  ')
  ∆,←⊂'FullRowSelect' 1
  ∆,←⊂'FontObj'n.APLfont
  n.List←n.∆Form.⎕NEW'ListView'∆
@@ -83,5 +89,5 @@
  n.List.onColumnClick←'OnColumnClickInList'
  n.List.onMouseDblClick←'OnMouseDblClickInList'
  n.List.onKeyPress←'OnKeyPressInList'
- n.List.∆Sort←⊂1 1   ⍝ First is column, second is sort order (1=up, 0=down). Saved for all columns visited, therefore enclosed
+ n.List.∆Sort←⊂3 0   ⍝ First is column, second is sort order (1=up, 0=down). Saved for all columns visited, therefore enclosed
  ⍝Done

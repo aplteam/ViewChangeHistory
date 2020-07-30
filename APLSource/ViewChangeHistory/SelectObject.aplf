@@ -1,7 +1,7 @@
  n←SelectObject(path project);n;parms;∆;list
 ⍝ Returns either `⍬` if no change files can be found or `n`
  n←⍬
- :If 0<≢list←('recursive' 1)('type'(0 9 1))##.FilesAndDirs.Dir path,GetChangeHistoryFolder,'/'
+ :If 0<≢list←('recursive' 1)('type'(0 9 1))F.Dir path,GetChangeHistoryFolder,'/'
      list←⍉↑list
  :AndIf 0<≢list←(2=list[;3])⌿list[;1 2]
      list[;2]←↓'ZI4,<->,ZI2,<->,ZI2,< >,ZI2,<:>,ZI2,<:>,ZI2'⎕FMT 6↑[2]↑list[;2]

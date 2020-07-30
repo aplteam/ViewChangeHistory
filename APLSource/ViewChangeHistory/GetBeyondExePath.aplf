@@ -5,7 +5,7 @@
  :Else
      r←'"C:\Program Files\Beyond Compare 4\BComp.exe"'
  :EndIf
- :If ~##.FilesAndDirs.IsFile r
+ :If ~F.IsFile r
      parms←G.FileBox.CreateParms
      parms.filters←⊂'*.exe' 'Executables (*.exe)'
      parms.addToCaption←'Find the BeyondCompare EXE'

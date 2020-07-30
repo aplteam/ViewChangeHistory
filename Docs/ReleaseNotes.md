@@ -4,6 +4,13 @@
 
 # Release Notes 
 
+* 1.1.1 ⋄ 2020-07-30
+  * Some minor improvements to the GUI (Tips).
+  * Bug fixes:
+    * When the main GUI is created the table contents should be automatically sorted by change date.
+    * After changing the sort order of the table the "Edit" command from the context menu fetched the wrong item.
+    * There was no keyboard shortcut for "Edit"; it's now Ctrl+E
+
 * 1.1.0 ⋄ 2020-05-06
   * Renamed from `ChangeHistory` to `ViewChangeHistory`.
   * Bug fixes:

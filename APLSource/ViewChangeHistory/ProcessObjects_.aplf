@@ -1,10 +1,22 @@
- {r}←n ProcessObjects_ ind;filename;noOf
+ {r}←n ProcessObjects_ ind;filename;noOf;objName
  r←⍬
- filename←n.∆Form.∆Path,(ind⊃n.List.Items),'.dcf'
+ objName←ind⊃n.List.Items
+ filename←n.∆Form.∆Path,objName,'.dcf'
  noOf←A.ToNum 2⊃n.List.ReportInfo[ind;]
+
  :If noOf=1
      ind TellOnlyOneVersionExists n
  :Else
      r←n Process filename noOf
  :EndIf
+
+⍝ :If noOf=1
+⍝     sourceFilename←n.∆Form.∆ProjectPath,'APLSource/',objName
+⍝     :If F.IsFile sourceFilename
+⍝         ShuffleComponents filename sourceFilename       ⍝ ShuffleComponents might not be needed in case we get a "BeforeFix" in acre
+⍝         r←n Process filename noOf
+⍝     :Else
+⍝         ind TellOnlyOneVersionExists n
+⍝     :EndIf
+⍝ :EndIf
 ⍝Done

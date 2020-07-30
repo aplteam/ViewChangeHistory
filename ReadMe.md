@@ -2,15 +2,17 @@
 
 ## Overview
 
-As a professional software developer you are using Git for managing your source code. Fine.
+As a professional software developer you might be using Git for managing your source code. Fine.
 
 An SCM takes care of what is committed. You may change an object many times during a day, but only when you commit your changes can you refer to this version later on.
 
 Any changes in between, including anything created after the last commit but deleted before the next one is lost.
 
-Usually that is fine. But occasionally you might find that having access to the changes in between would actually be useful. Wouldn't it be nice if a system would record all your changes silently in the background, only to be discarded as soon as you commit changes to your VCS only to start from scratch? 
+Usually that is fine. But occasionally you might find that having access to the changes in between would actually be useful. Wouldn't it be nice if all your changes are recorded silently in the background, only to be discarded as soon as you commit changes to your VCS in order to start from scratch? 
 
 That is exactly what the `]ViewChangeHistory` user command is designed to do.
+
+In fact it only discards changes after a commit when the user confirms it, but it always does discard changes when a push is performed.
 
 ## The GUI
 

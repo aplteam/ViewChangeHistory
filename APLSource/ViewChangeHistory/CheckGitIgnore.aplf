@@ -1,0 +1,13 @@
+ {r}←CheckGitIgnore path;filename;toBeIgnored
+⍝ Checks whether there is a file .gitignore in `path`. If so it checks whether
+⍝ it carries a folder `change_history`. If not the user is prompted for adding it.\\
+⍝ Returns 1 in case it was added and 0 otherwise
+ r←0
+ filename←path,'.gitignore'
+ :If F.IsFile filename
+ :AndIf 0<≢toBeIgnored←1⊃F.NGET filename 1
+ :AndIf ~∨/('change_history'∘,¨'' '/' '\')∊toBeIgnored
+ :AndIf 1 YesOrNo'The change_history/ folder is not mentioned in .gitignore - would you like to add it?'
+     toBeIgnored,←⊂'change_history/'
+     (⊂toBeIgnored)F.NPUT filename 1
+ :EndIf

@@ -4,7 +4,7 @@
  msg,←n.List.(SelItems/Items)
  :If n.∆globalParms G.Dialogs.YesOrNo msg
      filename←n.∆Form.∆Path,(⊃n.List.(SelItems/Items)),'.dcf'
-     {}##.FilesAndDirs.DeleteFile filename
+     {}F.DeleteFile filename
      n.List.ReportInfo[n.List.SelItems⍳1;4]←⊂'Deleted'
  :EndIf
 ⍝Done

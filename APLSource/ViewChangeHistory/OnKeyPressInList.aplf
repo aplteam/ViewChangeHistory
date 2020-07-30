@@ -1,6 +1,7 @@
  OnKeyPressInList←{
      n←GetRef2n 1⊃,⍵
-     13 2≡2↑4↓⍵:1⊣EditInMainList n      ⍝ Make Ctrl+Enter the same as Doube-click
+     13 2≡2↑4↓⍵:1⊣EditInMainList n      ⍝ Make Ctrl+Enter the same as Doube-click ("Edit")
+     5 69 2≡3↑3↓⍵:1⊣EditInMainList n    ⍝ Make Ctrl+E the same as Doube-click ("Edit")
      27 0≡2↑4↓⍵:⎕NQ n.∆Form'Close'      ⍝ Escape closes the Form
      1
  }

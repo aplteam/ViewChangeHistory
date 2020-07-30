@@ -1,15 +1,15 @@
  {r}←row TellOnlyOneVersionExists n;parms;msg;body;tno;filename;aplName;filePath;record
  r←⍬
+ aplName←⊃(n.List.∆Bool⌿n.List.∆Data)[row;6]
+ aplName←RemoveCaseCode aplName
  :If (3⊃n.List.ReportInfo[row;])∊'Nn'
      parms←##.APLGUI.Dialogs.CreateParmsForYesOrNo
      parms.addToCaption←'Warning'
      msg←'Only one version does exist for this object' '' 'Would you like to browse that version?'
      :If n.∆globalParms parms ##.APLGUI.Dialogs.YesOrNo msg
          :If ⎕NEXISTS filename←n.∆Form.∆ProjectPath
-             aplName←⊃(n.List.∆Bool⌿n.List.∆Data)[row;6]
-             aplName←RemoveCaseCode aplName
              filePath←⊃⎕SE.acre.Sourcefile aplName
-             filename←⊃⊃##.FilesAndDirs.Dir n.∆Form.∆Path,('APLSource'{⍵↓⍨(≢⍺)+1⍳⍨⍺⍷⍵}filePath),'.dcf'
+             filename←⊃⊃F.Dir n.∆Form.∆Path,('APLSource'{⍵↓⍨(≢⍺)+1⍳⍨⍺⍷⍵}filePath),'.dcf'
              tno←filename ⎕FSTIE 0
              record←⎕FREAD tno 1
              ⎕FUNTIE tno
@@ -26,7 +26,7 @@
      parms←##.APLGUI.Dialogs.CreateParmsForShowMsg
      parms.addToCaption←'Warning'
      parms.cancelButton←0
-     msg←'Only one version does exist for this object' '' 'Use "Edit" from the context menu for displaying it'
+     msg←'Only one version does exist for:' ''aplName'' 'Use "Edit" from the context menu for displaying it.'
      n.∆globalParms parms ##.APLGUI.Dialogs.ShowMsg msg
  :EndIf
 ⍝Done

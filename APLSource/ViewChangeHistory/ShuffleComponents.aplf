@@ -1,0 +1,8 @@
+ {r}←ShuffleComponents(historyFilename sourceFilename);orig;tno;last;history
+ orig←1⊃F.NGET sourceFilename
+ tno←historyFilename ⎕FTIE 0
+ last←-/⌽2↑⎕FSIZE tno
+ history←6⊃⎕FREAD tno last
+
+ ⎕FUNTIE tno
+⍝

@@ -1,6 +1,6 @@
 ; This script is best executed by ViewChangeHistory's "Make" utility.
 
-#define MyAppVersion "1.1.0.75"
+#define MyAppVersion "1.1.1.77"
 #define MyAppName "ViewChangeHistory"
 #define MyAppExeName "ViewChangeHistory.dws"
 #define MyAppPublisher "APL Team Ltd"
@@ -23,7 +23,7 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={userdocs}\\MyUCMDs\\{#MyAppName}
 DefaultGroupName={#MyAppPublisher}\{#MyAppName}
 AllowNoIcons=yes
-OutputDir={#TargetDir}
+OutputDir=C:/Users/kai/AppData/Local/Temp/InnoTempDir
 OutputBaseFilename="SetUp_{#MyAppName}_{#MyAppVersion}"
 Compression=lzma
 SolidCompression=yes
