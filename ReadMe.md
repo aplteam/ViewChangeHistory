@@ -1,5 +1,9 @@
 # ViewChangeHistory
 
+_This project is **retired**._
+
+-------------------
+
 ## Overview
 
 As a professional software developer you might be using Git for managing your source code. Fine.
